@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.11.4",
+    "createjs-easeljs": "^0.8.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
   }
