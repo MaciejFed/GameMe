@@ -1,0 +1,16 @@
+{
+  "name": "gameme",
+  "version": "1.0.0",
+  "description": "Excelent Game",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "MaciejFed",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.11.4",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  }
+}
