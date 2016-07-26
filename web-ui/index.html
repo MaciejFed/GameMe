@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="node_modules/react/dist/react.js"></script>
+    <script src="node_modules/react/dist/react-with-addons.js"></script>
     <script src="node_modules/react-dom/dist/react-dom.js"></script>
     <script src="node_modules/createjs-easeljs/lib/easeljs-0.8.2.min.js"></script>
     <script src="node_modules/createjs-tweenjs/lib/tweenjs-0.6.0.min.js"></script>
@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="stage"></div>
-    <script type="text/babel" src="src/stage.js"></script>
+    <script src="http://localhost:8090/webpack-dev-server.js"></script>
+    <script type="text/javascript" src="http://localhost:8090/assets/bundle.js"></script>
 </body>
 </html>

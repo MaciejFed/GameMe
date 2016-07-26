@@ -6,6 +6,11 @@
   "scripts": {
     "test": "test"
   },
+  "scripts": {
+  "start": "npm run serve | npm run dev",
+  "serve": "./node_modules/.bin/http-server -p 8080",
+  "dev": "webpack-dev-server --progress --colors --port 8090"
+},
   "author": "MaciejFed",
   "license": "ISC",
   "dependencies": {
@@ -13,6 +18,13 @@
     "createjs-easeljs": "^0.8.2",
     "createjs-tweenjs": "^0.6.0",
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }
