@@ -1,20 +1,32 @@
-var RECTANGLE_SIZE = 75;
+var RECTANGLE_SIZE = 100;
 
 var React = require('react');
 var DirectionButtonWrapper = require('./directon');
+var GameMap = require('./map');
 
+
+// tempMap.obstacles = [{1, 0}, {2, 0}];
 
 var Stage = React.createClass({
     stage: null,
+    widthRectangles: null,
     ball: new GameObject(new createjs.Shape()),
     directionValues: [],
-        render: function () {
+
+    getInitialState: function () {
+        this.loadLevelMap();
+        return ({})
+    },
+    loadLevelMap: function () {
+        this.map = new GameMap("");
+    },
+    render: function () {
         console.log(this.handleDirectionsValueChange);
         return (
               <div>
                 <canvas id="gameStage"
-                        width={RECTANGLE_SIZE * this.props.widthRectangles}
-                        height={RECTANGLE_SIZE * this.props.heightRectangles}>
+                        width={RECTANGLE_SIZE * this.map.width}
+                        height={RECTANGLE_SIZE * this.map.height}>
                 </canvas>
                 <button onClick={() => this.animateBall(this.directionValues)}>Animate</button>
                   <DirectionButtonWrapper onChange = {this.handleDirectionsValueChange}/>
@@ -22,15 +34,17 @@ var Stage = React.createClass({
         );
     },
     init: function () {
-        this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 25);
+        this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, RECTANGLE_SIZE / 3);
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
-        for (var h = 0; h < this.props.heightRectangles; h++){
-            for (var w = 0; w < this.props.widthRectangles; w++){
+        for (var h = 0; h < this.map.height; h++) {
+            for (var w = 0; w < this.map.width; w++) {
                 var border = new createjs.Shape();
                 border.graphics.beginStroke("#306");
                 border.graphics.setStrokeStyle(1);
+                if (this.map.openField({x: w, y: h}))
+                    border.graphics.beginFill("DeepSkyBlue");
                 border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 border.x = w * RECTANGLE_SIZE;
                 border.y = h * RECTANGLE_SIZE;

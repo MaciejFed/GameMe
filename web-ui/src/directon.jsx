@@ -52,6 +52,7 @@ var DirectionButton = React.createClass({
                 this.getInitialState()
             )
         }
+
     },
     state: function () {
         return this.state.currentDirection;

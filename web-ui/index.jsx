@@ -1,4 +1,10 @@
 var ReactDOM = require('react-dom');
 var Stage = require('./src/stage');
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
 
-ReactDOM.render(<Stage heightRectangles="5" widthRectangles="8"/>, document.getElementById('stage'));
+ReactDOM.render(
+    <Router>
+        <Route path="/level/*" component={Stage}></Route>
+    </Router>,
+    document.getElementById('stage'));
