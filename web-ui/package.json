@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run serve | npm run dev",
-    "serve": "./node_modules/.bin/http-server -p 8080",
-    "dev": "webpack-dev-server --progress --colors --port 8080"
+    "serve": "./node_modules/.bin/http-server -p 80",
+    "dev": "webpack-dev-server --progress --colors --port 80"
   },
   "author": "MaciejFed",
   "license": "ISC",

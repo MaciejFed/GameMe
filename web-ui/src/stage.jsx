@@ -1,49 +1,58 @@
 var RECTANGLE_SIZE = 100;
+var STAGE_NAME = "gameStage";
 
 var React = require('react');
 var DirectionButtonWrapper = require('./directon');
 var GameMap = require('./map');
 
-
-// tempMap.obstacles = [{1, 0}, {2, 0}];
-
 var Stage = React.createClass({
     stage: null,
-    widthRectangles: null,
+    levelUrl: null,
     ball: new GameObject(new createjs.Shape()),
     directionValues: [],
-
     getInitialState: function () {
-        this.loadLevelMap();
-        return ({})
+        return ({});
     },
-    loadLevelMap: function () {
-        this.map = new GameMap("");
+    componentDidMount: function () {
+        this.levelUrl = "http://localhost:8080/level/" + this.props.params.levelNumber;
+        this.serverRequest = $.get(this.levelUrl, function (result, status) {
+            this.setState({
+                gameMap: new GameMap(result)
+            });
+        }.bind(this));
+    },
+    componentDidUpdate: function () {
+        this.refreshStage();
     },
     render: function () {
-        console.log(this.handleDirectionsValueChange);
-        return (
-              <div>
-                <canvas id="gameStage"
-                        width={RECTANGLE_SIZE * this.map.width}
-                        height={RECTANGLE_SIZE * this.map.height}>
-                </canvas>
-                <button onClick={() => this.animateBall(this.directionValues)}>Animate</button>
-                  <DirectionButtonWrapper onChange = {this.handleDirectionsValueChange}/>
-            </div>
-        );
+        if (this.state.gameMap != undefined)
+            return (
+                <div>
+                    <canvas id="gameStage"
+                            width={RECTANGLE_SIZE * this.state.gameMap.width}
+                            height={RECTANGLE_SIZE * this.state.gameMap.height}>
+                    </canvas>
+                    <button onClick={() => this.animateBall(this.directionValues)}>Animate</button>
+                    <DirectionButtonWrapper onChange={this.handleDirectionsValueChange}/>
+                </div>
+            );
+        else
+            return (<div></div>)
     },
-    init: function () {
+    refreshStage: function () {
+        if (this.state.gameMap == undefined)
+            return;
+        this.stage = new createjs.Stage(STAGE_NAME);
         this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, RECTANGLE_SIZE / 3);
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
-        for (var h = 0; h < this.map.height; h++) {
-            for (var w = 0; w < this.map.width; w++) {
+        for (var h = 0; h < this.state.gameMap.height; h++) {
+            for (var w = 0; w < this.state.gameMap.width; w++) {
                 var border = new createjs.Shape();
                 border.graphics.beginStroke("#306");
                 border.graphics.setStrokeStyle(1);
-                if (this.map.openField({x: w, y: h}))
+                if (this.state.gameMap.openField({x: w, y: h}))
                     border.graphics.beginFill("DeepSkyBlue");
                 border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 border.x = w * RECTANGLE_SIZE;
@@ -66,10 +75,6 @@ var Stage = React.createClass({
     handleDirectionsValueChange: function (key, newValue) {
         this.directionValues[key] = newValue;
     },
-    componentDidMount: function () {
-        this.stage = new createjs.Stage("gameStage");
-        this.init();
-    }
 
 });
 
