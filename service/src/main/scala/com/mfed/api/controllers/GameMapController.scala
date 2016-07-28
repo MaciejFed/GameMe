@@ -1,5 +1,10 @@
 package com.mfed.api.controllers
 
+import com.mfed.api.converters.GameMapSerializatiors._
+import com.mfed.services.GameMapService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.{HttpStatus, ResponseEntity}
+import org.springframework.web.bind.annotation._
 /**
   * Created by Maciej Fedorowiat 
   * on 28/07/2016 01:32.

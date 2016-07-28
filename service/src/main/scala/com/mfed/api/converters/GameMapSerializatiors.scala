@@ -1,5 +1,8 @@
 package com.mfed.api.converters
 
+import com.mfed.model.{GameMap, Obstacle}
+
+import scala.collection.JavaConversions._
 /**
   * Created by Maciej Fedorowiat 
   * on 28/07/2016 14:53.

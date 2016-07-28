@@ -1,6 +1,5 @@
 .idea
 /web-ui/node_modules
-/service/.build
 /service/build
 /service/.gradle
 /service/gradle

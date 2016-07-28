@@ -6,6 +6,5 @@ package com.mfed.api.exceptions
   * mfedorowiat@gmail.com
   */
 
-case class GameMapNotFoundException(message: String) extends RuntimeException(message) {}
-
-case class GameMapAlreadyExistsException(message: String) extends RuntimeException(message) {}
+case class GameMapNotFoundException(message: String) extends RuntimeException(message){}
+case class GameMapAlreadyExistsException(message: String) extends RuntimeException(message){}
