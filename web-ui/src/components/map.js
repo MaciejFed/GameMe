@@ -1,7 +1,3 @@
-var tempMap = {};
-tempMap.width = 4;
-tempMap.height = 2;
-tempMap.obstacles = [{x: 1, y: 0}, {x: 2, y: 0}, {x: 3, y: 1}];
 
 function GameMap(map) {
     this.width = map.width;

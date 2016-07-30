@@ -1,0 +1,13 @@
+[{
+    "_id" : "2222",
+    "_class" : "com.mfed.model.GameMap",
+    "levelNumber" : 125,
+    "width" : 4,
+    "height" : 4,
+    "obstacles" : [ 
+        {
+            "x" : 0,
+            "y" : 1
+        }
+    ]
+}]

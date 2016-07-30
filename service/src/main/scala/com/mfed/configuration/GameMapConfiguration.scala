@@ -15,19 +15,15 @@ import scala.collection.JavaConversions._
 @EnableMongoRepositories(basePackages = Array("com.mfed.repositories"))
 @ComponentScan(Array("com.mfed")) class GameMapConfiguration extends AbstractMongoConfiguration {
   private val mongoPort: Integer = 27017
-  private val mongoHost: String = "localhost"
+  private val mongoHost: String = "GameMeDB"
   private val mongoDBName: String = "GameMe"
-  private val user: String = "root"
-  private val password: String = "root"
 
   @Bean
   @throws[Exception]
   def mongo: Mongo = {
-    val mongoCredential: MongoCredential = MongoCredential.createCredential(user, mongoDBName, password.toCharArray)
     val addresses: List[ServerAddress] = List(new ServerAddress(mongoHost + ":" + mongoPort))
-    val mongoCredentials: List[MongoCredential] = List(mongoCredential)
 
-    new MongoClient(addresses, mongoCredentials)
+    new MongoClient(addresses)
   }
 
   protected def getDatabaseName: String = mongoDBName

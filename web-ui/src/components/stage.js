@@ -1,30 +1,49 @@
 var RECTANGLE_SIZE = 100;
 var STAGE_NAME = "gameStage";
 
-var React = require('react');
-var DirectionButtonWrapper = require('./directon');
+import React from 'react';
+import DirectionButtonWrapper from './directon';
 var GameMap = require('./map');
 
-var Stage = React.createClass({
-    stage: null,
-    levelUrl: null,
-    ball: new GameObject(new createjs.Shape()),
-    directionValues: [],
-    getInitialState: function () {
-        return ({});
-    },
-    componentDidMount: function () {
-        this.levelUrl = "http://localhost:8080/level/" + this.props.params.levelNumber;
+export default class Stage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.stage = null;
+        this.levelUrl = null;
+        this.ball = new GameObject(new createjs.Shape());
+        this.directionValues = [];
+        this.state = {}
+    }
+
+    componentDidMount() {
+        this.levelUrl = "http://GameMeService:8080/level/" + this.props.params.levelNumber;
         this.serverRequest = $.get(this.levelUrl, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
             });
         }.bind(this));
-    },
-    componentDidUpdate: function () {
+
+        // http://stackoverflow.com/questions/15369577/cross-domain-jquery-get
+        //
+        //     $.ajax({
+        //         url: this.levelUrl,
+        //         dataType: "jsonp",
+        //         success: function (data) {
+        //             this.setState({
+        //                 gameMap: new GameMap(result)
+        //             });
+        //         }
+        //     });
+
+
+    }
+
+    componentDidUpdate() {
         this.refreshStage();
-    },
-    render: function () {
+    }
+
+    render() {
         if (this.state.gameMap != undefined)
             return (
                 <div>
@@ -32,14 +51,15 @@ var Stage = React.createClass({
                             width={RECTANGLE_SIZE * this.state.gameMap.width}
                             height={RECTANGLE_SIZE * this.state.gameMap.height}>
                     </canvas>
-                    <button onClick={() => this.animateBall(this.directionValues)}>Animate</button>
-                    <DirectionButtonWrapper onChange={this.handleDirectionsValueChange}/>
+                    <button onClick={() => this.animateBall(this.directionValues).bind(this)}>Animate</button>
+                    <DirectionButtonWrapper onChange={this.handleDirectionsValueChange.bind(this)}/>
                 </div>
             );
         else
             return (<div></div>)
-    },
-    refreshStage: function () {
+    }
+
+    refreshStage() {
         if (this.state.gameMap == undefined)
             return;
         this.stage = new createjs.Stage(STAGE_NAME);
@@ -61,26 +81,28 @@ var Stage = React.createClass({
             }
         }
         this.stage.update();
-    },
-    animateBall: function(directionsValues) {
+    }
+
+    animateBall(directionsValues) {
         var directions = directionsValues.map(mapToDirection);
         var circleTween = createjs.Tween.get(this.ball.circle);
-        for(var i = 0; i < directions.length; i++){
+        for (var i = 0; i < directions.length; i++) {
             this.ball.applyDirection(directions[i]);
-            circleTween.to({ x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
+            circleTween.to({x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
         }
         createjs.Ticker.setFPS(60);
         createjs.Ticker.addEventListener("tick", this.stage);
-    },
-    handleDirectionsValueChange: function (key, newValue) {
-        this.directionValues[key] = newValue;
-    },
+    }
 
-});
+    handleDirectionsValueChange(key, newValue) {
+        this.directionValues[key] = newValue;
+    }
+
+};
 
 function GameObject(circle) {
-    this.x = RECTANGLE_SIZE/2;
-    this.y = RECTANGLE_SIZE/2;
+    this.x = RECTANGLE_SIZE / 2;
+    this.y = RECTANGLE_SIZE / 2;
     this.circle = circle;
 }
 
@@ -95,7 +117,7 @@ function Direction(dX, dY) {
 }
 
 function mapToDirection(stringDirection) {
-    switch (stringDirection){
+    switch (stringDirection) {
         case "Up":
             return new Direction(0, -RECTANGLE_SIZE);
         case "Right":
@@ -106,5 +128,3 @@ function mapToDirection(stringDirection) {
             return new Direction(-RECTANGLE_SIZE, 0);
     }
 }
-
-module.exports = Stage;
