@@ -17,7 +17,7 @@ export default class Stage extends React.Component {
     }
 
     componentDidMount() {
-        this.levelUrl = "http://GameMeService:8080/level/" + this.props.params.levelNumber;
+        this.levelUrl = "http://192.168.99.100:8080/level/" + this.props.params.levelNumber;
         this.serverRequest = $.get(this.levelUrl, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
