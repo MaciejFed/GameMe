@@ -11,7 +11,7 @@ class restart_server:
     def POST(self):
         import subprocess
         print "Restarting service..."
-        subprocess.call("sudo ./runApp.sh", shell=True)
+        subprocess.call("./runApp.sh", shell=True)
         print "end"
 app = MyApplication(urls, globals())
 if __name__ == "__main__":
