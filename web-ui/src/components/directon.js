@@ -49,8 +49,10 @@ class DirectionButton extends React.Component{
                 currentDirection: DIRECTIONS[this.state.directionCounter + 1]
             })
         }else {
-            this.setState(
-                this.getInitialState()
+            this.setState({
+                directionCounter: 0,
+                currentDirection: DIRECTIONS[0]
+                }
             )
         }
 
