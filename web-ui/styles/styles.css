@@ -1,0 +1,7 @@
+#board {
+    width: 300px;
+    margin-top: 75px;
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+}

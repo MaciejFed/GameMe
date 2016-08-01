@@ -24,19 +24,6 @@ export default class Stage extends React.Component {
             });
         }.bind(this));
 
-        // http://stackoverflow.com/questions/15369577/cross-domain-jquery-get
-        //
-        //     $.ajax({
-        //         url: this.levelUrl,
-        //         dataType: "jsonp",
-        //         success: function (data) {
-        //             this.setState({
-        //                 gameMap: new GameMap(result)
-        //             });
-        //         }
-        //     });
-
-
     }
 
     componentDidUpdate() {
@@ -46,7 +33,7 @@ export default class Stage extends React.Component {
     render() {
         if (this.state.gameMap != undefined)
             return (
-                <div>
+                <div id="board">
                     <canvas id="gameStage"
                             width={RECTANGLE_SIZE * this.state.gameMap.width}
                             height={RECTANGLE_SIZE * this.state.gameMap.height}>
@@ -69,24 +56,24 @@ export default class Stage extends React.Component {
         this.stage.addChild(this.ball.circle);
         for (var h = 0; h < this.state.gameMap.height; h++) {
             for (var w = 0; w < this.state.gameMap.width; w++) {
-                var border = new createjs.Shape();
-                border.graphics.beginStroke("#306");
-                border.graphics.setStrokeStyle(1);
-                if (this.state.gameMap.openField({x: w, y: h}))
-                    border.graphics.beginFill("DeepSkyBlue");
-                border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
-                border.x = w * RECTANGLE_SIZE;
-                border.y = h * RECTANGLE_SIZE;
-                this.stage.addChild(border);
-            }
+            var border = new createjs.Shape();
+            border.graphics.beginStroke("#306");
+            border.graphics.setStrokeStyle(1);
+            if (this.state.gameMap.openField({x: w, y: h}))
+                border.graphics.beginFill("DeepSkyBlue");
+            border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
+            border.x = w * RECTANGLE_SIZE;
+            border.y = h * RECTANGLE_SIZE;
+            this.stage.addChild(border);
         }
-        this.stage.update();
     }
+    this.stage.update();
+}
 
-    animateBall(directionsValues) {
-        var directions = directionsValues.map(mapToDirection);
-        var circleTween = createjs.Tween.get(this.ball.circle);
-        for (var i = 0; i < directions.length; i++) {
+animateBall(directionsValues) {
+    var directions = directionsValues.map(mapToDirection);
+    var circleTween = createjs.Tween.get(this.ball.circle);
+    for (var i = 0; i < directions.length; i++) {
             this.ball.applyDirection(directions[i]);
             circleTween.to({x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
         }
