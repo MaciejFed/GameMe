@@ -5,7 +5,7 @@ git clone http://github.com/maciejfed/gameme.git
 cd gameme
 
 sudo docker rm -f GameMeDB
-sudodocker rm -f GameMeService
+sudo docker rm -f GameMeService
 sudo docker rm -f GameMeUI
 
 echo building the GameMeDB...
