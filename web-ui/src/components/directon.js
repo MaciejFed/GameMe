@@ -33,7 +33,7 @@ class DirectionButton extends React.Component{
         super(props);
         this.state = {
             directionCounter: 0,
-            currentDirection: DIRECTIONS[0]
+            currentDirection: DIRECTIONS[2]
         }
     }
     render() {
