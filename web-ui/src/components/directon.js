@@ -21,7 +21,7 @@ export default class DirectionButtonWrapper extends React.Component{
     }
     addButton() {
         var index = this.state.directionButtons.length;
-        this.props.onChange(index, "Right");
+        this.props.onChange(index, "Down");
         this.setState({
             directionButtons: this.state.directionButtons.concat([<DirectionButton index ={index} onChange={this.props.onChange.bind(this)}/>])
         });
@@ -33,7 +33,7 @@ class DirectionButton extends React.Component{
         super(props);
         this.state = {
             directionCounter: 0,
-            currentDirection: DIRECTIONS[0]
+            currentDirection: DIRECTIONS[2]
         }
     }
     render() {
