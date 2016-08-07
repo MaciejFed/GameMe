@@ -57,7 +57,7 @@ export default class Stage extends React.Component {
         for (var h = 0; h < this.state.gameMap.height; h++) {
             for (var w = 0; w < this.state.gameMap.width; w++) {
             var border = new createjs.Shape();
-            border.graphics.beginStroke("#306");
+            border.graphics.beginStroke("#999");
             border.graphics.setStrokeStyle(1);
             if (this.state.gameMap.openField({x: w, y: h}))
                 border.graphics.beginFill("DeepSkyBlue");
