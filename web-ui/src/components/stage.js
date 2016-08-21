@@ -50,7 +50,7 @@ export default class Stage extends React.Component {
         if (this.state.gameMap == undefined)
             return;
         this.stage = new createjs.Stage(STAGE_NAME);
-        this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, RECTANGLE_SIZE / 6);
+        this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, RECTANGLE_SIZE / 4);
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
