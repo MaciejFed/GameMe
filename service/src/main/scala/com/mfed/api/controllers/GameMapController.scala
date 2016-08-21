@@ -1,5 +1,6 @@
 package com.mfed.api.controllers
 
+import com.mfed.dto._
 import com.mfed.api.converters.GameMapSerializatiors._
 import com.mfed.services.GameMapService
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,13 +20,8 @@ class GameMapController {
   private val gameMapService: GameMapService = null
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.GET))
-  def getGameMap(@PathVariable levelNumber: Int): ResponseEntity[java.util.Map[Object, Object]] = {
-    new ResponseEntity[java.util.Map[Object, Object]](gameMapService.getGameMap(levelNumber), HttpStatus.OK)
-  }
-
-  @RequestMapping(method = Array(RequestMethod.POST))
-  def saveGameMap(@PathVariable levelNumber: Int, @RequestBody gameMap: java.util.Map[Object, Object]): ResponseEntity[java.util.Map[Object, Object]] = {
-    new ResponseEntity[java.util.Map[Object, Object]](gameMapService.saveGameMap(asGameObject(gameMap)), HttpStatus.OK)
+  def getGameMap(@PathVariable levelNumber: Int): ResponseEntity[GameMapDTO] = {
+    new ResponseEntity[GameMapDTO](gameMapService.getGameMap(levelNumber), HttpStatus.OK)
   }
 
   @ExceptionHandler(value = Array(classOf[Exception]))
