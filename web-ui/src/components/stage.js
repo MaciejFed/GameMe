@@ -24,6 +24,7 @@ export default class Stage extends React.Component {
             });
         }.bind(this));
 
+
     }
 
     componentDidUpdate() {
@@ -50,7 +51,7 @@ export default class Stage extends React.Component {
         if (this.state.gameMap == undefined)
             return;
         this.stage = new createjs.Stage(STAGE_NAME);
-        this.ball.circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, RECTANGLE_SIZE / 4);
+        this.ball.circle.graphics.beginFill("#BCEE68").drawCircle(0, 0, RECTANGLE_SIZE / 4);
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
@@ -60,7 +61,7 @@ export default class Stage extends React.Component {
             border.graphics.beginStroke("#999");
             border.graphics.setStrokeStyle(1);
             if (this.state.gameMap.openField({x: w, y: h}))
-                border.graphics.beginFill("DeepSkyBlue");
+                border.graphics.beginFill("#BCEE68");
             border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
             border.x = w * RECTANGLE_SIZE;
             border.y = h * RECTANGLE_SIZE;
