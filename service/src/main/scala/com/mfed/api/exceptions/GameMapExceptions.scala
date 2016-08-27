@@ -8,3 +8,4 @@ package com.mfed.api.exceptions
 
 case class GameMapNotFoundException(message: String) extends RuntimeException(message){}
 case class GameMapAlreadyExistsException(message: String) extends RuntimeException(message){}
+case class WrongDirectionException(message: String) extends RuntimeException(message){}

@@ -18,12 +18,11 @@ export default class Stage extends React.Component {
 
     componentDidMount() {
         this.levelUrl = "http://130.211.102.113:8080/level/" + this.props.params.levelNumber;
-        this.serverRequest = $.get(this.levelUrl, function (result, status) {
+        $.get(this.levelUrl, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
             });
         }.bind(this));
-
 
     }
 
@@ -71,8 +70,32 @@ export default class Stage extends React.Component {
     this.stage.update();
 }
 
+    loadRoad(levelNumber, path, startPoint) {
+        console.log(startPoint);
+        var body = {"path" : path, "startPoint": startPoint};
+        var result = [];
+        $.ajax({
+            url : "http://130.211.102.113:8080/level/" + levelNumber,
+            type: "POST",
+            data : JSON.stringify(body),
+            contentType: 'application/json',
+            async: false,
+            success: function(data, textStatus, jqXHR)
+            {
+                result = data;
+
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log(errorThrown)
+            }
+        });
+
+        return result;
+    }
+
 animateBall(directionsValues) {
-    var directions = directionsValues.map(mapToDirection);
+    var directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
     var circleTween = createjs.Tween.get(this.ball.circle);
     for (var i = 0; i < directions.length; i++) {
             this.ball.applyDirection(directions[i]);
@@ -89,6 +112,8 @@ animateBall(directionsValues) {
 };
 
 function GameObject(circle) {
+    this.gameX = 0;
+    this.gameY = 0;
     this.x = RECTANGLE_SIZE / 2;
     this.y = RECTANGLE_SIZE / 2;
     this.circle = circle;
@@ -97,6 +122,15 @@ function GameObject(circle) {
 GameObject.prototype.applyDirection = function (direction) {
     this.x += direction.dX;
     this.y += direction.dY;
+    this.gameX += direction.dX / RECTANGLE_SIZE;
+    this.gameY += direction.dY / RECTANGLE_SIZE;
+};
+
+GameObject.prototype.getPoint = function () {
+    return{
+        "x" : this.gameX,
+        "y" : this.gameY
+    };
 };
 
 function Direction(dX, dY) {

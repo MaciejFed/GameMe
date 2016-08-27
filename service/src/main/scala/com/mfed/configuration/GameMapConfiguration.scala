@@ -1,6 +1,6 @@
 package com.mfed.configuration
 
-import com.mongodb.{Mongo, MongoClient, MongoCredential, ServerAddress}
+import com.mongodb.{Mongo, MongoClient, ServerAddress}
 import org.springframework.context.annotation.{Bean, ComponentScan, Configuration}
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories
