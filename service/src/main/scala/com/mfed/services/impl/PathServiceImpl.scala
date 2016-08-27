@@ -45,7 +45,7 @@ class PathServiceImpl extends PathService{
   def add(point: (Int, Int), direction: (String, Int, Int)) = (point._1 + direction._2, point._2 + direction._3)
 
   def isAnObstacle(point: (Int, Int), gameMap: GameMap) : Boolean= {
-    gameMap.obstacles.contains(Obstacle(point._1, point._2))
+    gameMap.obstacles.contains(Obstacle(point._1, point._2)) || point._1 < 0 || point._2 < 0
   }
 
 
