@@ -4,10 +4,13 @@ git clone http://github.com/maciejfed/gameme.git
 
 cd gameme
 
-sudo docker kill $(sudo docker ps -q)
-sudo docker rm $(sudo docker images -q)
-sudo docker rmi $(sudo docker images -q -f dangling=true)
-sudo docker rmi $(sudo docker images -q)
+sudo docker rm -f GameMeDB
+sudo docker rm -f GameMeService
+sudo docker rm -f GameMeUI
+sudo docker kill -f $(sudo docker ps -q)
+sudo docker rm -f $(sudo docker images -q)
+sudo docker rmi -f $(sudo docker images -q -f dangling=true)
+sudo docker rmi -f $(sudo docker images -q)
 
 echo building the GameMeDB...
 
