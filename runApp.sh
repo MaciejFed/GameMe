@@ -4,9 +4,6 @@ git clone http://github.com/maciejfed/gameme.git
 
 cd gameme
 
-sudo docker rm -f GameMeDB
-sudo docker rm -f GameMeService
-sudo docker rm -f GameMeUI
 sudo docker stop $(docker images -q)
 sudo docker rm $(docker images -q)
 sudo docker rmi $(docker images -q)
