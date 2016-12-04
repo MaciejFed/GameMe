@@ -1,11 +1,10 @@
-var DIRECTIONS = ["Up", "Right", "Down", "Left"];
+const DIRECTIONS = ["Up", "Right", "Down", "Left"];
 import React from 'react';
 
 export default class DirectionButtonWrapper extends React.Component{
     constructor(props){
 
         super(props);
-        console.log("as");
         this.state = {
             directionButtons: []
         }

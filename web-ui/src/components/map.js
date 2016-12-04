@@ -7,7 +7,7 @@ function GameMap(map) {
 }
 
 GameMap.prototype.openField = function (point) {
-    for (var i = 0; i < this.obstacles.length; i++) {
+    for (let i = 0; i < this.obstacles.length; i++) {
         if (this.obstacles[i].x == point.x && this.obstacles[i].y == point.y) {
             return true;
         }

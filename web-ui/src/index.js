@@ -5,6 +5,6 @@ import { Router, Route, Link } from 'react-router'
 
 render(
     <Router>
-        <Route path="/level/:levelNumber" component={Stage}></Route>
+        <Route path="/level/:levelNumber" component={Stage}/>
     </Router>,
     document.getElementById('stage'));

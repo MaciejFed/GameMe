@@ -1,9 +1,11 @@
-var RECTANGLE_SIZE = 100;
-var STAGE_NAME = "gameStage";
+const RECTANGLE_SIZE = 75;
+const STAGE_NAME = "gameStage";
 
 import React from 'react';
 import DirectionButtonWrapper from './directon';
-var GameMap = require('./map');
+import CodeRunner from './code-runner'
+import * as $ from "jquery";
+const GameMap = require('./map');
 
 export default class Stage extends React.Component {
 
@@ -13,11 +15,11 @@ export default class Stage extends React.Component {
         this.levelUrl = null;
         this.ball = new GameObject(new createjs.Shape());
         this.directionValues = [];
-        this.state = {}
+        this.state = {};
     }
 
     componentDidMount() {
-        this.levelUrl = "http://130.211.102.113:8080/level/" + this.props.params.levelNumber;
+        this.levelUrl = API_URL + "/level/" + this.props.params.levelNumber;
         $.get(this.levelUrl, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
@@ -33,12 +35,13 @@ export default class Stage extends React.Component {
     render() {
         if (this.state.gameMap != undefined)
             return (
-                <div id="board">
+                <div id="board" style={{display: 'flex', justifyContent: 'center', marginTop: '100', position: 'relative'}} >
                     <canvas id="gameStage"
                             width={RECTANGLE_SIZE * this.state.gameMap.width}
                             height={RECTANGLE_SIZE * this.state.gameMap.height}>
                     </canvas>
-                    <button onClick={() => this.animateBall(this.directionValues).bind(this)}>Animate</button>
+                    <CodeRunner/>
+                    <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, position: 'absolute', bottom: '-50'}}>Animate</button>
                     <DirectionButtonWrapper onChange={this.handleDirectionsValueChange.bind(this)}/>
                 </div>
             );
@@ -54,17 +57,17 @@ export default class Stage extends React.Component {
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
-        for (var h = 0; h < this.state.gameMap.height; h++) {
-            for (var w = 0; w < this.state.gameMap.width; w++) {
-            var border = new createjs.Shape();
-            border.graphics.beginStroke("#999");
-            border.graphics.setStrokeStyle(1);
-            if (this.state.gameMap.openField({x: w, y: h}))
-                border.graphics.beginFill("#BCEE68");
-            border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
-            border.x = w * RECTANGLE_SIZE;
-            border.y = h * RECTANGLE_SIZE;
-            this.stage.addChild(border);
+        for (let h = 0; h < this.state.gameMap.height; h++) {
+            for (let w = 0; w < this.state.gameMap.width; w++) {
+                let border = new createjs.Shape();
+                border.graphics.beginStroke("#999");
+                border.graphics.setStrokeStyle(1);
+                if (this.state.gameMap.openField({x: w, y: h}))
+                    border.graphics.beginFill("#BCEE68");
+                border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
+                border.x = w * RECTANGLE_SIZE;
+                border.y = h * RECTANGLE_SIZE;
+                this.stage.addChild(border);
         }
     }
     this.stage.update();
@@ -72,21 +75,18 @@ export default class Stage extends React.Component {
 
     loadRoad(levelNumber, path, startPoint) {
         console.log(startPoint);
-        var body = {"path" : path, "startPoint": startPoint};
-        var result = [];
+        const body = {"path": path, "startPoint": startPoint};
+        let result = [];
         $.ajax({
-            url : "http://130.211.102.113:8080/level/" + levelNumber,
+            url : API_URL + "/level/" + levelNumber,
             type: "POST",
             data : JSON.stringify(body),
             contentType: 'application/json',
             async: false,
-            success: function(data, textStatus, jqXHR)
-            {
+            success: function(data, textStatus, jqXHR) {
                 result = data;
-
             },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown)
             }
         });
@@ -95,9 +95,9 @@ export default class Stage extends React.Component {
     }
 
 animateBall(directionsValues) {
-    var directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
-    var circleTween = createjs.Tween.get(this.ball.circle);
-    for (var i = 0; i < directions.length; i++) {
+    const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
+    const circleTween = createjs.Tween.get(this.ball.circle);
+    for (let i = 0; i < directions.length; i++) {
             this.ball.applyDirection(directions[i]);
             circleTween.to({x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
         }

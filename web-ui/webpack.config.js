@@ -1,10 +1,11 @@
 var webpack = require('webpack');
 var path = require('path');
+var webpackProfiles = require('webpack-profiles');
 
-module.exports = {
+var config = {
     devtool: 'inline-source-map',
     entry: [
-        'webpack-dev-server/client?http://130.211.102.113:80/',
+        'webpack-dev-server/client?http://localhost:80/',
         'webpack/hot/only-dev-server',
         './src'
     ],
@@ -30,3 +31,5 @@ module.exports = {
         new webpack.NoErrorsPlugin()
     ]
 };
+
+module.exports = webpackProfiles(config, {profilesFilename: 'profiles.js'});

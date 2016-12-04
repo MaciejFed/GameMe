@@ -3,19 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --progress --colors --port 80 --host 0.0.0.0"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colog": "^1.0.4",
     "createjs-easeljs": "^0.8.2",
     "createjs-tweenjs": "^0.6.0",
+    "extendify": "^1.0.0",
     "jquery": "^3.1.0",
+    "lodash": "^4.17.2",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
-    "react-router": "^2.6.1"
+    "react-router": "^2.6.1",
+    "webpack-profiles": "^1.0.0",
+    "yargs": "^6.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
