@@ -9,7 +9,7 @@ export default class CodeRunner extends React.Component{
         super(props);
         this.inputArea = null;
         this.state = {
-            text: API_URL
+            text: ''
         };
     }
 
