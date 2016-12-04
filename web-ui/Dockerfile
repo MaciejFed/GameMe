@@ -18,4 +18,4 @@ RUN chmod 777 run-app.sh
 
 EXPOSE 80 3000
 
-ENTRYPOINT ["./run-app.sh", "dev_mock"]
+ENTRYPOINT ["./run-app.sh", "prod_mock"]
