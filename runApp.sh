@@ -30,6 +30,6 @@ echo starting dockers...
 
 sudo docker run --name GameMeDB -d -p 27017:27017 maciejfed/gameme-db
 sudo docker run --name GameMeService -d -p 8080:8080 --link GameMeDB maciejfed/gameme-service
-sudo docker run --name GameMeUI -d -p 80:80 --link GameMeService maciejfed/gameme-ui
+sudo docker run --name GameMeUI -d -p 80:80 -p 3000:3000 --link GameMeService maciejfed/gameme-ui
 
 echo success!

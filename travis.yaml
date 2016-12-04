@@ -1,0 +1,12 @@
+before_script: cd service
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+script: 
+- gradle build 
+- curl -X POST http://104.199.61.138:8999/restart &
+- sleep 20m
+- gradle test
