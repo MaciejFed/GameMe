@@ -1,4 +1,4 @@
-const RECTANGLE_SIZE = 75;
+const RECTANGLE_SIZE = 60;
 const STAGE_NAME = "gameStage";
 
 import React from 'react';
