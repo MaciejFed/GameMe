@@ -1,4 +1,3 @@
-
 if %1==prod_mock (
     start json-server mock_server/gameMe.json
 )
