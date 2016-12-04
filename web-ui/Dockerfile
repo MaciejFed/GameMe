@@ -18,4 +18,4 @@ RUN chmod 777 run-app.sh
 
 EXPOSE 80 3000
 
-CMD [ "run-app.sh", "dev_mock" ]
+CMD [ run-app.sh, "dev_mock" ]
