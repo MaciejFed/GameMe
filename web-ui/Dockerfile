@@ -14,7 +14,8 @@ COPY mock_server /usr/src/app/
 RUN npm install
 RUN npm install -g webpack-dev-server
 RUN npm install -g json-server
+RUN chmod 777 run-app.sh
 
 EXPOSE 80 3000
 
-CMD [ "run-app.sh", "dev" ]
+CMD [ "run-app.sh", "dev_mock" ]
