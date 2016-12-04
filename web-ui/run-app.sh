@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if ["$1"== "dev_mock"]; then
+if ["$1"== "prod_mock"]; then
     json-server --watch mock_server/gameMe.json &
 fi
 
