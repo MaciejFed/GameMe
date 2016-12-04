@@ -9,7 +9,7 @@ COPY profiles.js /usr/src/app/
 COPY index.html /usr/src/app
 COPY webpack.config.js /usr/src/app
 COPY src /usr/src/app/src/
-COPY mock_server /usr/src/app/
+COPY mock_server /usr/src/app/mock_server/
 
 RUN npm install
 RUN npm install -g webpack-dev-server

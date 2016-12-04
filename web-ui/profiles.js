@@ -8,7 +8,7 @@ module.exports = {
     },
     prod_mock: {
         vars: {
-            API_URL: "'http://104.199.61.138:3000/'"
+                API_URL: "'http://104.199.61.138:3000/'"
         }
     },
     dev: {
