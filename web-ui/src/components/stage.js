@@ -19,7 +19,7 @@ export default class Stage extends React.Component {
     }
 
     componentDidMount() {
-        this.levelUrl = API_URL + "/level/" + this.props.params.levelNumber;
+        this.levelUrl = API_URL + "/level/" + this.getLastLevelPlayed();
         $.get(this.levelUrl, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
@@ -94,7 +94,7 @@ export default class Stage extends React.Component {
         return result;
     }
 
-animateBall(directionsValues) {
+    animateBall(directionsValues) {
     const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
     const circleTween = createjs.Tween.get(this.ball.circle);
     for (let i = 0; i < directions.length; i++) {
@@ -107,6 +107,10 @@ animateBall(directionsValues) {
 
     handleDirectionsValueChange(key, newValue) {
         this.directionValues[key] = newValue;
+    }
+
+    getLastLevelPlayed(){
+        return 125;
     }
 
 };
