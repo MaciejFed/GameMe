@@ -36,11 +36,11 @@ export default class Stage extends React.Component {
         if (this.state.gameMap != undefined)
             return (
                 <div id="board" style={{display: 'flex', justifyContent: 'center', marginTop: '100', position: 'relative'}} >
+                    <CodeRunner/>
                     <canvas id="gameStage"
                             width={RECTANGLE_SIZE * this.state.gameMap.width}
                             height={RECTANGLE_SIZE * this.state.gameMap.height}>
                     </canvas>
-                    <CodeRunner/>
                     <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, position: 'absolute', bottom: '-50'}}>Animate</button>
                     <DirectionButtonWrapper onChange={this.handleDirectionsValueChange.bind(this)}/>
                 </div>

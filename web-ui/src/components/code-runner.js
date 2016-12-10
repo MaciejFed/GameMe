@@ -1,7 +1,7 @@
 import React from 'react'
 const WRONG_FUNCTION = 'red';
 const CORRECT_FUNCTION = 'green';
-const DICTIONARY = ["code"];
+const DICTIONARY = ["code", "for", "while", "if", "int"];
 
 export default class CodeRunner extends React.Component{
     constructor(props){
@@ -14,14 +14,15 @@ export default class CodeRunner extends React.Component{
 
     render(){
         return (
-            <div>
-                <div onClick={() => this.focusOnInput()}>{this.state.text}</div>
+            <div style={{backgroundColor: '#0d010a', width: '300', marginRight: '25'}}>
+                <div style={{wordWrap: 'break-word', margin: '25'}} onClick={() => this.focusOnInput()}>{this.state.text}</div>
                 <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
             </div>
         )
     }
 
     focusOnInput(){
+        console.log("Focus!!!");
         this.inputArea.focus();
     }
 
@@ -40,7 +41,7 @@ export default class CodeRunner extends React.Component{
         if(DICTIONARY.indexOf(word) === -1)
             wordStyle = WRONG_FUNCTION;
 
-        return <span style={{color: wordStyle}}>{word} </span>
+        return <span style={{color: wordStyle, fontSize: 25}}>{word} </span>
     };
 }
 
