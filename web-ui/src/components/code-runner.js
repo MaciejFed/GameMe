@@ -1,8 +1,7 @@
 import React from 'react'
-
-const WRONG_FUNCTION = '#770100';
-const CORRECT_FUNCTION = '#09770b';
-
+const WRONG_FUNCTION = 'red';
+const CORRECT_FUNCTION = 'green';
+const DICTIONARY = ["code"];
 
 export default class CodeRunner extends React.Component{
     constructor(props){
@@ -28,7 +27,20 @@ export default class CodeRunner extends React.Component{
 
     changeText(text){
         this.setState({
-            text: text.target.value
+            text: this.format(text.target.value)
         });
     }
+
+    format(text){
+        return text.split(" ").map(this.style);
+    }
+
+    style(word){
+        let wordStyle = CORRECT_FUNCTION;
+        if(DICTIONARY.indexOf(word) === -1)
+            wordStyle = WRONG_FUNCTION;
+
+        return <span style={{color: wordStyle}}>{word} </span>
+    };
 }
+
