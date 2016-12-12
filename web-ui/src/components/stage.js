@@ -41,8 +41,7 @@ export default class Stage extends React.Component {
                             width={RECTANGLE_SIZE * this.state.gameMap.width}
                             height={RECTANGLE_SIZE * this.state.gameMap.height}>
                     </canvas>
-                    <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, position: 'absolute', bottom: '-50'}}>Animate</button>
-                    <DirectionButtonWrapper onChange={this.handleDirectionsValueChange.bind(this)}/>
+                        <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, width: 100, position: 'absolute', bottom: -100}}>Animate</button>
                 </div>
             );
         else
