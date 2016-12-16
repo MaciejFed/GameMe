@@ -1,4 +1,4 @@
-const RECTANGLE_SIZE = 75;
+const RECTANGLE_SIZE = window.innerWidth / 15;
 const STAGE_NAME = "gameStage";
 
 import React from 'react';
@@ -35,13 +35,15 @@ export default class Stage extends React.Component {
     render() {
         if (this.state.gameMap != undefined)
             return (
-                <div id="board" style={{display: 'flex', justifyContent: 'center', marginTop: '100', position: 'relative'}} >
+                <div style={{position: 'fixed', padding:0, margin:0, top:0, left:0, width: '100%', height: '100%'}}>
                     <CodeRunner/>
-                    <canvas id="gameStage"
-                            width={RECTANGLE_SIZE * this.state.gameMap.width}
-                            height={RECTANGLE_SIZE * this.state.gameMap.height}>
-                    </canvas>
-                        <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, width: 100, position: 'absolute', bottom: -100}}>Animate</button>
+                    <div id="board" style={{display: 'flex', justifyContent: 'center', marginTop: '100', position: 'relative'}} >
+                        <canvas id="gameStage"
+                                width={RECTANGLE_SIZE * this.state.gameMap.width}
+                                height={RECTANGLE_SIZE * this.state.gameMap.height}>
+                        </canvas>
+                            <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, width: 100, position: 'absolute', bottom: -100}}>Animate</button>
+                    </div>
                 </div>
             );
         else
