@@ -14,16 +14,14 @@ export default class CodeRunner extends React.Component{
 
     render(){
         return (
-            <div onClick={this.focusOnInput.bind(this)} style={{position: 'absolute', backgroundColor: '#0d010a', width: 300, height: '100%', marginRight: 25}}>
+            <div className="code-container" onClick={this.focusOnInput.bind(this)} style={{position: 'absolute', backgroundColor: '#0d010a', width: 300, height: '100%', marginRight: 25}}>
                 <div style={{wordWrap: 'break-word', margin: 25}} >{this.state.text}</div>
-                <button className="item-button" ></button>
                 <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
             </div>
         )
     }
 
     focusOnInput(){
-        console.log('asd');
         this.inputArea.focus();
     }
 
