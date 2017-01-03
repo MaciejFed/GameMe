@@ -1,0 +1,11 @@
+.codeRunner {
+    flex: 1;
+    background-color: black;
+    padding: 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.text{
+    color: red;
+}

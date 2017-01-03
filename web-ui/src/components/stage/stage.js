@@ -1,11 +1,14 @@
-const RECTANGLE_SIZE = window.innerWidth / 15;
+const RECTANGLE_SIZE = window.innerWidth / 20;
 const STAGE_NAME = "gameStage";
 
 import React from 'react';
-import DirectionButtonWrapper from './directon';
-import CodeRunner from './code-runner'
+import CodeRunner from '../code_runner/code-runner'
 import * as $ from "jquery";
-const GameMap = require('./map');
+import stageStyles from './stage-style.css'
+const GameMap = require('./../map_wrapper/map');
+const OPEN_FIELD_COLOR = "#999";
+const CLOSED_FIELD_COLOR = "#222";
+
 
 export default class Stage extends React.Component {
 
@@ -35,14 +38,14 @@ export default class Stage extends React.Component {
     render() {
         if (this.state.gameMap != undefined)
             return (
-                <div style={{position: 'fixed', padding:0, margin:0, top:0, left:0, width: '100%', height: '100%'}}>
-                    <CodeRunner/>
-                    <div id="board" style={{display: 'flex', justifyContent: 'center', marginTop: '100', position: 'relative'}} >
+                <div className={stageStyles.stage}>
+                    <CodeRunner />
+                    <div id="board" className={stageStyles.board} >
                         <canvas id="gameStage"
                                 width={RECTANGLE_SIZE * this.state.gameMap.width}
                                 height={RECTANGLE_SIZE * this.state.gameMap.height}>
                         </canvas>
-                            <button onClick={() => this.animateBall(this.directionValues).bind(this)} style={{height: 50, width: 100, position: 'absolute', bottom: -100}}>Animate</button>
+                        <button onClick={() => this.animateBall(this.directionValues).bind(this)} className={stageStyles.animateButton}>Animate</button>
                     </div>
                 </div>
             );
@@ -53,26 +56,35 @@ export default class Stage extends React.Component {
     refreshStage() {
         if (this.state.gameMap == undefined)
             return;
+        this.initStage();
+        this.renderRectangles();
+        this.stage.update();
+    }
+
+    initStage(){
         this.stage = new createjs.Stage(STAGE_NAME);
         this.ball.circle.graphics.beginFill("#BCEE68").drawCircle(0, 0, RECTANGLE_SIZE / 4);
         this.ball.circle.x = this.ball.x;
         this.ball.circle.y = this.ball.y;
         this.stage.addChild(this.ball.circle);
+    }
+
+    renderRectangles(){
         for (let h = 0; h < this.state.gameMap.height; h++) {
             for (let w = 0; w < this.state.gameMap.width; w++) {
                 let border = new createjs.Shape();
-                border.graphics.beginStroke("#999");
-                border.graphics.setStrokeStyle(1);
+                border.graphics.beginStroke(OPEN_FIELD_COLOR);
+                border.graphics.setStrokeStyle(2);
+                console.log(stageStyles.closeField);
                 if (this.state.gameMap.openField({x: w, y: h}))
-                    border.graphics.beginFill("#BCEE68");
+                    border.graphics.beginFill(CLOSED_FIELD_COLOR);
                 border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 border.x = w * RECTANGLE_SIZE;
                 border.y = h * RECTANGLE_SIZE;
                 this.stage.addChild(border);
+            }
         }
     }
-    this.stage.update();
-}
 
     loadRoad(levelNumber, path, startPoint) {
         console.log(startPoint);

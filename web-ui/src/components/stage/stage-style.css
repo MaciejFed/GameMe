@@ -1,0 +1,20 @@
+.stage{
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.board{
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    align-items: center;
+    justify-content: center;
+}
+
+.animateButton{
+    height: 50px;
+    width: 100px;
+    margin-top: 25px;
+}

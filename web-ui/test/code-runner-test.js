@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, render, mount } from 'enzyme';
 import expect from 'expect';
-import CodeRunner from '../src/components/code-runner';
+import CodeRunner from '../src/components/code_runner/code-runner';
 import jsdom from 'jsdom'
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
 global.document = doc;
@@ -17,9 +17,9 @@ describe('Component: CodeRunner', () => {
         ).toEqual(1);
     });
 
-    it('focus on input when click on div', () => {
+    it('focus on input when click event on div', () => {
         const wrapper = mount(<CodeRunner />);
-        let inputContainer = wrapper.find('div.code-container');
+        let inputContainer = wrapper.find('#code-container');
 
         inputContainer.simulate('click');
 

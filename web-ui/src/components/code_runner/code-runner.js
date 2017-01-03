@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './code-runner-style.css'
 const WRONG_FUNCTION = 'red';
 const CORRECT_FUNCTION = 'green';
 const DICTIONARY = ["code", "for", "while", "if", "int"];
@@ -14,8 +15,9 @@ export default class CodeRunner extends React.Component{
 
     render(){
         return (
-            <div className="code-container" onClick={this.focusOnInput.bind(this)} style={{position: 'absolute', backgroundColor: '#0d010a', width: 300, height: '100%', marginRight: 25}}>
-                <div style={{wordWrap: 'break-word', margin: 25}} >{this.state.text}</div>
+            <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)} >
+                {this.state.text}
+                <div style={{wordWrap: 'break-word'}} >{styles.text}</div>
                 <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
             </div>
         )
