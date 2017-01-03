@@ -8,6 +8,7 @@ import stageStyles from './stage-style.css'
 const GameMap = require('./../map_wrapper/map');
 const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
+let robot = require("./robot.png");
 
 
 export default class Stage extends React.Component {
@@ -56,17 +57,25 @@ export default class Stage extends React.Component {
     refreshStage() {
         if (this.state.gameMap == undefined)
             return;
-        this.initStage();
-        this.renderRectangles();
-        this.stage.update();
+        let robotBitmap = new createjs.Bitmap(robot);
+
+        robotBitmap.image.onload = function() {
+            this.initStage(robotBitmap);
+            this.renderRectangles();
+            this.stage.update();
+        }.bind(this);
+
     }
 
-    initStage(){
+    initStage(robot){
         this.stage = new createjs.Stage(STAGE_NAME);
-        this.ball.circle.graphics.beginFill("#BCEE68").drawCircle(0, 0, RECTANGLE_SIZE / 4);
-        this.ball.circle.x = this.ball.x;
-        this.ball.circle.y = this.ball.y;
-        this.stage.addChild(this.ball.circle);
+        let scale = RECTANGLE_SIZE * 0.8 / robot.getBounds().width;
+        robot.x = RECTANGLE_SIZE * 0.1;
+        robot.y = RECTANGLE_SIZE * 0.1;
+        robot.scaleX = scale;
+        robot.scaleY = scale;
+        console.log(robot);
+        this.stage.addChild(robot);
     }
 
     renderRectangles(){

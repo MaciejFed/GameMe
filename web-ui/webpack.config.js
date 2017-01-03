@@ -25,19 +25,27 @@ var config = {
             test: /\.jsx?$/,
             exclude: /node_modules/,
             loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
-        }, {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract(
-                    'style-loader',
-                    combineLoaders([{
-                        loader: 'css-loader',
-                        query: {
-                            modules: true,
-                            localIdentName: '[name]__[local]___[hash:base64:5]'
-                        }
-                    }])
-                )
+        },
+        {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract(
+                'style-loader',
+                combineLoaders([{
+                    loader: 'css-loader',
+                    query: {
+                        modules: true,
+                        localIdentName: '[name]__[local]___[hash:base64:5]'
+                    }
+                }])
+         )}
+         ,{
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
             }
+
         ]
     },
     plugins: [
