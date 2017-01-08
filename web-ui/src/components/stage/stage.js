@@ -3,8 +3,11 @@ const STAGE_NAME = "gameStage";
 
 import React from 'react';
 import CodeRunner from '../code_runner/code-runner'
-import * as $ from "jquery";
 import stageStyles from './stage-style.css'
+import CodeRunnerClient from '../../client/code-runner-client';
+import MapClient from '../../client/map-client';
+import GameObject from './game-object';
+import Direction from './direction';
 const GameMap = require('./../map_wrapper/map');
 const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
@@ -15,23 +18,23 @@ export default class Stage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.codeRunnerCLient = new CodeRunnerClient();
+        this.mapClient = new MapClient();
         this.stage = null;
         this.levelUrl = null;
-        this.robot = new GameObject(new createjs.Shape());
+        this.robot = new GameObject(new createjs.Shape(), RECTANGLE_SIZE);
         this.directionValues = [];
         this.state = {};
     }
 
     componentDidMount() {
-        this.levelUrl = API_URL + "/level/" + this.getLastLevelPlayed();
-        $.get(this.levelUrl, function (result, status) {
+        this.mapClient.loadMap(this.getLastLevelPlayed(), function (result, status) {
             this.setState({
                 gameMap: new GameMap(result)
             });
         }.bind(this));
 
     }
-
     componentDidUpdate() {
         this.refreshStage();
     }
@@ -46,7 +49,7 @@ export default class Stage extends React.Component {
                                 width={RECTANGLE_SIZE * this.state.gameMap.width}
                                 height={RECTANGLE_SIZE * this.state.gameMap.height}>
                         </canvas>
-                        <button onClick={() => this.animateBall(this.directionValues).bind(this)} className={stageStyles.animateButton}>Animate</button>
+                        <button onClick={() => this.animateBall(this.directionValues)} className={stageStyles.animateButton}>Animate</button>
                     </div>
                 </div>
             );
@@ -58,7 +61,7 @@ export default class Stage extends React.Component {
         if (this.state.gameMap == undefined)
             return;
         let robotBitmap = new createjs.Bitmap(robot);
-        this.robot = new GameObject(robotBitmap);
+        this.robot = new GameObject(robotBitmap, RECTANGLE_SIZE);
 
         robotBitmap.image.onload = function() {
             this.initStage(robotBitmap);
@@ -84,9 +87,10 @@ export default class Stage extends React.Component {
                 let border = new createjs.Shape();
                 border.graphics.beginStroke(OPEN_FIELD_COLOR);
                 border.graphics.setStrokeStyle(2);
-                console.log(stageStyles.closeField);
+
                 if (this.state.gameMap.openField({x: w, y: h}))
                     border.graphics.beginFill(CLOSED_FIELD_COLOR);
+                
                 border.graphics.drawRect(0, 0, RECTANGLE_SIZE, RECTANGLE_SIZE);
                 border.x = w * RECTANGLE_SIZE;
                 border.y = h * RECTANGLE_SIZE;
@@ -95,29 +99,9 @@ export default class Stage extends React.Component {
         }
     }
 
-    loadRoad(levelNumber, path, startPoint) {
-        console.log(startPoint);
-        const body = {"startPoint": "[0,  0]"};
-        let result = [];
-        $.ajax({
-            url : API_URL + "/level/" + levelNumber,
-            type: "POST",
-            data : JSON.stringify(body),
-            contentType: 'application/json',
-            async: false,
-            success: function(data, textStatus, jqXHR) {
-                result = data;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown)
-            }
-        });
-
-        return result;
-    }
-
     animateBall(directionsValues) {
-        const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.robot.getPoint()).map(mapToDirection);
+        const directions = this.codeRunnerCLient.loadRoad(this.props.params.levelNumber, directionsValues, this.robot.getPoint()).map(Direction.mapToDirection);
+        console.log(directions);
         const circleTween = createjs.Tween.get(this.robot.bitmapObject);
         for (let i = 0; i < directions.length; i++) {
                 this.robot.applyDirection(directions[i]);
@@ -133,42 +117,3 @@ export default class Stage extends React.Component {
 
 };
 
-function GameObject(bitmapObject) {
-    this.gameX = 0;
-    this.gameY = 0;
-    this.x = RECTANGLE_SIZE * 0.1;
-    this.y = RECTANGLE_SIZE * 0.1;
-    this.bitmapObject = bitmapObject;
-}
-
-GameObject.prototype.applyDirection = function (direction) {
-    this.x += direction.dX;
-    this.y += direction.dY;
-    this.gameX += direction.dX / RECTANGLE_SIZE;
-    this.gameY += direction.dY / RECTANGLE_SIZE;
-};
-
-GameObject.prototype.getPoint = function () {
-    return{
-        "x" : this.gameX,
-        "y" : this.gameY
-    };
-};
-
-function Direction(dX, dY) {
-    this.dX = dX;
-    this.dY = dY;
-}
-
-function mapToDirection(stringDirection) {
-    switch (stringDirection) {
-        case "Up":
-            return new Direction(0, -RECTANGLE_SIZE);
-        case "Right":
-            return new Direction(RECTANGLE_SIZE, 0);
-        case "Down":
-            return new Direction(0, RECTANGLE_SIZE);
-        case "Left":
-            return new Direction(-RECTANGLE_SIZE, 0);
-    }
-}
