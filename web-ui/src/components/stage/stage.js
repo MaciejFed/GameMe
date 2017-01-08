@@ -17,7 +17,7 @@ export default class Stage extends React.Component {
         super(props);
         this.stage = null;
         this.levelUrl = null;
-        this.ball = new GameObject(new createjs.Shape());
+        this.robot = new GameObject(new createjs.Shape());
         this.directionValues = [];
         this.state = {};
     }
@@ -58,6 +58,7 @@ export default class Stage extends React.Component {
         if (this.state.gameMap == undefined)
             return;
         let robotBitmap = new createjs.Bitmap(robot);
+        this.robot = new GameObject(robotBitmap);
 
         robotBitmap.image.onload = function() {
             this.initStage(robotBitmap);
@@ -74,7 +75,6 @@ export default class Stage extends React.Component {
         robot.y = RECTANGLE_SIZE * 0.1;
         robot.scaleX = scale;
         robot.scaleY = scale;
-        console.log(robot);
         this.stage.addChild(robot);
     }
 
@@ -97,7 +97,7 @@ export default class Stage extends React.Component {
 
     loadRoad(levelNumber, path, startPoint) {
         console.log(startPoint);
-        const body = {"path": path, "startPoint": startPoint};
+        const body = {"startPoint": "[0,  0]"};
         let result = [];
         $.ajax({
             url : API_URL + "/level/" + levelNumber,
@@ -117,18 +117,14 @@ export default class Stage extends React.Component {
     }
 
     animateBall(directionsValues) {
-    const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
-    const circleTween = createjs.Tween.get(this.ball.circle);
-    for (let i = 0; i < directions.length; i++) {
-            this.ball.applyDirection(directions[i]);
-            circleTween.to({x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
-        }
-        createjs.Ticker.setFPS(60);
-        createjs.Ticker.addEventListener("tick", this.stage);
-    }
-
-    handleDirectionsValueChange(key, newValue) {
-        this.directionValues[key] = newValue;
+        const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.robot.getPoint()).map(mapToDirection);
+        const circleTween = createjs.Tween.get(this.robot.bitmapObject);
+        for (let i = 0; i < directions.length; i++) {
+                this.robot.applyDirection(directions[i]);
+                circleTween.to({x: this.robot.x, y: this.robot.y}, 1000, createjs.Ease.getPowInOut(4));
+            }
+            createjs.Ticker.setFPS(60);
+            createjs.Ticker.addEventListener("tick", this.stage);
     }
 
     getLastLevelPlayed(){
@@ -137,12 +133,12 @@ export default class Stage extends React.Component {
 
 };
 
-function GameObject(circle) {
+function GameObject(bitmapObject) {
     this.gameX = 0;
     this.gameY = 0;
-    this.x = RECTANGLE_SIZE / 2;
-    this.y = RECTANGLE_SIZE / 2;
-    this.circle = circle;
+    this.x = RECTANGLE_SIZE * 0.1;
+    this.y = RECTANGLE_SIZE * 0.1;
+    this.bitmapObject = bitmapObject;
 }
 
 GameObject.prototype.applyDirection = function (direction) {
