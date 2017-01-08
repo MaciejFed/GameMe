@@ -8,6 +8,7 @@ import stageStyles from './stage-style.css'
 const GameMap = require('./../map_wrapper/map');
 const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
+let robot = require("./robot.png");
 
 
 export default class Stage extends React.Component {
@@ -16,7 +17,7 @@ export default class Stage extends React.Component {
         super(props);
         this.stage = null;
         this.levelUrl = null;
-        this.ball = new GameObject(new createjs.Shape());
+        this.robot = new GameObject(new createjs.Shape());
         this.directionValues = [];
         this.state = {};
     }
@@ -56,17 +57,25 @@ export default class Stage extends React.Component {
     refreshStage() {
         if (this.state.gameMap == undefined)
             return;
-        this.initStage();
-        this.renderRectangles();
-        this.stage.update();
+        let robotBitmap = new createjs.Bitmap(robot);
+        this.robot = new GameObject(robotBitmap);
+
+        robotBitmap.image.onload = function() {
+            this.initStage(robotBitmap);
+            this.renderRectangles();
+            this.stage.update();
+        }.bind(this);
+
     }
 
-    initStage(){
+    initStage(robot){
         this.stage = new createjs.Stage(STAGE_NAME);
-        this.ball.circle.graphics.beginFill("#BCEE68").drawCircle(0, 0, RECTANGLE_SIZE / 4);
-        this.ball.circle.x = this.ball.x;
-        this.ball.circle.y = this.ball.y;
-        this.stage.addChild(this.ball.circle);
+        let scale = RECTANGLE_SIZE * 0.8 / robot.getBounds().width;
+        robot.x = RECTANGLE_SIZE * 0.1;
+        robot.y = RECTANGLE_SIZE * 0.1;
+        robot.scaleX = scale;
+        robot.scaleY = scale;
+        this.stage.addChild(robot);
     }
 
     renderRectangles(){
@@ -88,7 +97,7 @@ export default class Stage extends React.Component {
 
     loadRoad(levelNumber, path, startPoint) {
         console.log(startPoint);
-        const body = {"path": path, "startPoint": startPoint};
+        const body = {"startPoint": "[0,  0]"};
         let result = [];
         $.ajax({
             url : API_URL + "/level/" + levelNumber,
@@ -108,18 +117,14 @@ export default class Stage extends React.Component {
     }
 
     animateBall(directionsValues) {
-    const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.ball.getPoint()).map(mapToDirection);
-    const circleTween = createjs.Tween.get(this.ball.circle);
-    for (let i = 0; i < directions.length; i++) {
-            this.ball.applyDirection(directions[i]);
-            circleTween.to({x: this.ball.x, y: this.ball.y}, 1000, createjs.Ease.getPowInOut(4));
-        }
-        createjs.Ticker.setFPS(60);
-        createjs.Ticker.addEventListener("tick", this.stage);
-    }
-
-    handleDirectionsValueChange(key, newValue) {
-        this.directionValues[key] = newValue;
+        const directions = this.loadRoad(this.props.params.levelNumber, directionsValues, this.robot.getPoint()).map(mapToDirection);
+        const circleTween = createjs.Tween.get(this.robot.bitmapObject);
+        for (let i = 0; i < directions.length; i++) {
+                this.robot.applyDirection(directions[i]);
+                circleTween.to({x: this.robot.x, y: this.robot.y}, 1000, createjs.Ease.getPowInOut(4));
+            }
+            createjs.Ticker.setFPS(60);
+            createjs.Ticker.addEventListener("tick", this.stage);
     }
 
     getLastLevelPlayed(){
@@ -128,12 +133,12 @@ export default class Stage extends React.Component {
 
 };
 
-function GameObject(circle) {
+function GameObject(bitmapObject) {
     this.gameX = 0;
     this.gameY = 0;
-    this.x = RECTANGLE_SIZE / 2;
-    this.y = RECTANGLE_SIZE / 2;
-    this.circle = circle;
+    this.x = RECTANGLE_SIZE * 0.1;
+    this.y = RECTANGLE_SIZE * 0.1;
+    this.bitmapObject = bitmapObject;
 }
 
 GameObject.prototype.applyDirection = function (direction) {

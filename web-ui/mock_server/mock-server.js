@@ -9,11 +9,12 @@ server.use(jsonServer.bodyParser);
 
 server.use(function (req, res, next) {
     if (req.method === 'POST') {
-        res.jsonp(req.body.path)
+        res.jsonp(["Down", "Right", "Right", "Down", "Right", "Up", "Left"]);
     }
 
     next()
 });
+
 
 server.use(router);
 server.listen(3000, function () {
