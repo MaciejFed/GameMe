@@ -16,10 +16,13 @@ export default class CodeRunner extends React.Component{
     render(){
         return (
             <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)}>
-                <div style={{wordWrap: 'break-word'}}>
+                <div className={styles.codeTextContainer}>
                     {this.state.text}
                 </div>
                 <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
+                <div className={styles.compileButtonContainer}>
+                    <button className={styles.compileButton}>Compile</button>
+                </div>
             </div>
         )
     }
