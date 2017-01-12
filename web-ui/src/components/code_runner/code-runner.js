@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './code-runner-style.css'
 const WRONG_FUNCTION = 'red';
 const CORRECT_FUNCTION = 'green';
 const DICTIONARY = ["code", "for", "while", "if", "int"];
@@ -14,9 +15,14 @@ export default class CodeRunner extends React.Component{
 
     render(){
         return (
-            <div onClick={this.focusOnInput.bind(this)} style={{borderRadius: '12', backgroundColor: '#0d010a', width: '300', marginRight: '25'}}>
-                <div style={{wordWrap: 'break-word', margin: '25'}} onClick={() => this.focusOnInput()}>{this.state.text}</div>
+            <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)}>
+                <div className={styles.codeTextContainer}>
+                    {this.state.text}
+                </div>
                 <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
+                <div className={styles.compileButtonContainer}>
+                    <button className={styles.compileButton}>Compile</button>
+                </div>
             </div>
         )
     }
@@ -27,15 +33,15 @@ export default class CodeRunner extends React.Component{
 
     changeText(text){
         this.setState({
-            text: this.format(text.target.value)
+            text: CodeRunner.format(text.target.value)
         });
     }
 
-    format(text){
-        return text.split(" ").map(this.style);
+    static format(text){
+        return text.split(" ").map(CodeRunner.style);
     }
 
-    style(word){
+    static style(word){
         let wordStyle = CORRECT_FUNCTION;
         if(DICTIONARY.indexOf(word) === -1)
             wordStyle = WRONG_FUNCTION;
