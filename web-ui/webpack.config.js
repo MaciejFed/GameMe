@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = {
     devtool: 'inline-source-map',
     entry: [
-        'webpack-dev-server/client?http://localhost:80/',
+        'webpack-dev-server/client?http://0.0.0.0:80/',
         'webpack/hot/only-dev-server',
         './src'
     ],
