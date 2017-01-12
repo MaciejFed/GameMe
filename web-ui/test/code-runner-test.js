@@ -27,4 +27,9 @@ describe('Component: CodeRunner', () => {
     });
 
     it('changes text when input on div');
+    it('saves code on successful compile response');
+    it('display saved code after click on saved one');
+    it('changes style when focus on input');
+    it('focuses on div when any keyboard input');
+    it('shows progress animation when waiting for compile response')
 });
