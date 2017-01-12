@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 COPY run-app.sh /usr/src/app/
 COPY profiles.js /usr/src/app/
-COPY index.html /usr/src/app
+COPY index.ejs /usr/src/app
 COPY webpack.config.js /usr/src/app
 COPY src /usr/src/app/src/
 COPY mock_server /usr/src/app/mock_server/
