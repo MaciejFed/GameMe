@@ -3,12 +3,12 @@ var webpack = require('webpack');
 module.exports = {
     prod: {
         vars: {
-            API_URL: "'http://104.199.157.171:8080'"
+            API_URL: "'http://104.199.166.4:8080'"
         }
     },
     prod_mock: {
         vars: {
-                API_URL: "'http://104.199.157.171:3000'"
+            API_URL: "'http://104.199.166.4:3000'"
         }
     },
     dev: {
