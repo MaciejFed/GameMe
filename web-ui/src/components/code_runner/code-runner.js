@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './code-runner-style.css'
-const WRONG_FUNCTION = 'red';
-const CORRECT_FUNCTION = 'green';
+const WRONG_FUNCTION = '#884d29';
+const CORRECT_FUNCTION = '#88994a';
 const DICTIONARY = ["code", "for", "while", "if", "int"];
 
 export default class CodeRunner extends React.Component{
