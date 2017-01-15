@@ -7,6 +7,4 @@ jdk:
 
 script: 
 - gradle build 
-- curl -X POST http://104.199.157.171:8999/restart &
-- sleep 20m
-- gradle test
+- curl -X POST http://104.199.166.4:8999/restart 
