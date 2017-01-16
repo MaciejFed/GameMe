@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, render, mount } from 'enzyme';
 import expect from 'expect';
-import CodeRunner from '../src/components/code_runner/code-runner';
+import CodeRunner from './CodeRunner';
 import jsdom from 'jsdom'
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
 global.document = doc;

@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './code-runner-style.css'
+import styles from './coderunner.css'
 const WRONG_FUNCTION = '#882104';
 const CORRECT_FUNCTION = '#88994a';
 const DICTIONARY = ["code", "for", "while", "if", "int"];

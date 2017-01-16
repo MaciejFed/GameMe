@@ -1,10 +1,3 @@
-.stage{
-    overflow: hidden;
-    display: flex;
-    width: 100%;
-    height: 100vh;
-}
-
 .board{
     display: flex;
     flex-direction: column;

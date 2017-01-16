@@ -1,12 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Stage from 'components/stage/stage';
+import Level from 'scenes/Level/Level';
 import { Router, Route, browserHistory } from 'react-router'
 
 
 render(
     <Router history={browserHistory}>
-        <Route path="/" component={Stage}/>
+        <Route path="/" component={Level}/>
     </Router>,
     document.getElementById("root"));
 
