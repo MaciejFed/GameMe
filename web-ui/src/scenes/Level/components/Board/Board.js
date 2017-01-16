@@ -85,7 +85,7 @@ export default class Board extends React.Component {
     }
 
     animateBall(directionsValues) {
-        const directions = this.codeRunnerCLient.loadRoad(this.props.params.levelNumber, directionsValues, this.robot.getPoint()).map(Direction.mapToDirection);
+        const directions = this.codeRunnerCLient.loadRoad(this.props.levelNumber, directionsValues, this.robot.getPoint()).map(Direction.mapToDirection);
         console.log(directions);
         const circleTween = createjs.Tween.get(this.robot.bitmapObject);
         for (let i = 0; i < directions.length; i++) {
