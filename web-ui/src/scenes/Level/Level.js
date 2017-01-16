@@ -16,7 +16,7 @@ export default class Level extends React.Component{
         return(
             <div className={styles.level}>
                 <CodeRunner />
-                <Board gameMap={this.state.gameMap}/>
+                <Board gameMap={this.state.gameMap} levelNumber={this.getLastLevelPlayed()}/>
             </div>
         )
     }
