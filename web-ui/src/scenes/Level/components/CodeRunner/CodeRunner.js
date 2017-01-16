@@ -17,11 +17,6 @@ export default class CodeRunner extends React.Component{
     }
 
     render(){
-        const options = {
-            transitionName: "fade",
-            transitionEnterTimeout: 500,
-            transitionLeaveTimeout: 500,
-        };
         return (
             <div className={styles.codeRunnerWrapper}>
                 <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)}>
