@@ -1,11 +1,24 @@
+.codeRunnerWrapper {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+}
+
+
 .codeRunner {
-    flex: 1;
+    flex: 5;
     display: flex;
     flex-direction: column;
     background-color: black;
     padding: 25px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.codeButtons{
+    flex: 1;
+    flex-direction: column;
+    display: flex;
 }
 
 .codeTextContainer{
@@ -26,4 +39,11 @@
 .compileButton{
     width: 150px;
     height: 50px;
+}
+
+.savedCodeButton{
+    height: 35px;
+    width: 70px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
