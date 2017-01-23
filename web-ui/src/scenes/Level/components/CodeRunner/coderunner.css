@@ -1,0 +1,5 @@
+.codeRunnerWrapper {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+}
