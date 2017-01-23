@@ -9,7 +9,7 @@ export default class SavedCodeList extends React.Component{
     render(){
         return(
             <div className={styles.codeButtons}>
-                <button className={styles.savedCodeButton}/>
+                <button className={styles.savedFunctionButton}/>
             </div>
         )
     }

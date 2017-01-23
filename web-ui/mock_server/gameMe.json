@@ -1,45 +1,27 @@
 {
 	"level" : [
 		{
-			"id" : 125,
-			"width" : 6,
-			"height" : 6,
-			"obstacles" : [
-				{
-				"x" : 1,
-				"y" :1
-			},
-			{
-				"x" : 3,
-				"y" :2
-			},
-			{
-				"x" : 4,
-				"y" :1
-			},
-				{
-					"x" : 4,
-					"y" :5
-				},
-
-				{
-					"x" : 2,
-					"y" :4
-				}
-		]
-
-		},
-		{
 			"id" : 1,
-			"width" : 2,
-			"height" : 2,
-			"obstacles" : [
-				{
-					"x" : 1,
-					"y" :1
-				}
-			]
-
+			"gameMap": {
+				"width" : 5,
+				"height" : 1,
+				"obstacles" : [
+				]
+			},
+			"introductionText": ["Write Your Code Here!", "...or Click On Function Button"]
+		}
+	],
+	"examples":[
+		{
+			"id": 1,
+			"name": "goRight",
+			"gameMap": {
+				"width" : 5,
+				"height" : 1,
+				"obstacles" : []
+			},
+			"introductionText": ["Move Your Robot Right!"],
+			"startCode": null
 		}
 	]
 }

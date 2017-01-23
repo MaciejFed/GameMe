@@ -4,27 +4,29 @@ import EnterTextAnimation from './components/EnterTextAnimation/EnterTextAnimati
 import styles from './codeeditor.css';
 const WRONG_FUNCTION = '#882104';
 const CORRECT_FUNCTION = '#88994a';
-const DICTIONARY = ["code", "for", "while", "if", "int"];
+const DICTIONARY = ["code", "for", "while", "if", "int", "goRight();"];
 
-export default class CodeRunner extends React.Component{
-    constructor(){
-        super();
+export default class CodeEditor extends React.Component{
+    constructor(props){
+        super(props);
         this.inputArea = null;
         this.state = {
-            text: '',
             textVisibility: 'hidden',
-            animation: (<EnterTextAnimation endCallback={this.endAnimationCallback.bind(this)}/>)
+            animationEnded: false
         };
     }
 
     render(){
         return(
             <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)}>
-                {this.state.animation}
+                {
+                    this.state.animationEnded ? null :
+                    <EnterTextAnimation introductionText={this.props.introductionText} endCallback={this.endAnimationCallback.bind(this)}/>
+                }
                 <div style={{visibility: this.state.textVisibility}} className={styles.codeTextContainer}>
                     <PointerSpan text={this.state.text}/>
                 </div>
-                <input ref={(input) => this.inputArea = input} onChange={(text) => this.changeText(text)} style={{opacity: 0}}/>
+                <input ref={(input) => this.inputArea = input} onChange={(event) => this.changeText(event.target.value)} style={{opacity: 0}}/>
                 <div className={styles.compileButtonContainer}>
                     <button className={styles.compileButton}>Compile</button>
                 </div>
@@ -35,9 +37,18 @@ export default class CodeRunner extends React.Component{
     endAnimationCallback(){
         this.setState({
             textVisibility: 'visible',
-            animation: null
+            animationEnded: true
         });
+        this.inputArea.value = this.props.startCode;
+        this.changeText(this.props.startCode);
         this.focusOnInput();
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            textVisibility: 'hidden',
+            animationEnded: false
+        });
     }
 
     focusOnInput(){
@@ -45,13 +56,23 @@ export default class CodeRunner extends React.Component{
     }
 
     changeText(text){
+        this.inputArea.value = text;
         this.setState({
-            text: CodeRunner.format(text.target.value)
+            text: CodeEditor.format(text)
         });
+        this.focusOnInput();
+    }
+
+    appendText(text){
+        this.inputArea.value = this.inputArea.value + text;
+        this.setState({
+            text: CodeEditor.format(this.inputArea.value)
+        });
+        this.focusOnInput();
     }
 
     static format(text){
-        return text.split(" ").map(CodeRunner.style);
+        return text.split(" ").map(CodeEditor.style);
     }
 
     static style(word, index){

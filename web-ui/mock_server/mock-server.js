@@ -9,7 +9,7 @@ server.use(jsonServer.bodyParser);
 
 server.use(function (req, res, next) {
     if (req.method === 'POST') {
-        res.jsonp(["Down", "Right", "Right", "Down", "Right", "Up", "Left"]);
+        res.jsonp(["Right", "Right", "Right", "Right"]);
     }
 
     next()
