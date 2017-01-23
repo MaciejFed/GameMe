@@ -9,19 +9,34 @@
 				]
 			},
 			"introductionText": ["Write Your Code Here!", "...or Click On Function Button"]
+		},
+		{
+			"id" : 2,
+			"gameMap": {
+				"width" : 6,
+				"height" : 2,
+				"obstacles" : [
+					{
+						"x": 2,
+						"y": 0
+					}
+				]
+			},
+			"introductionText": ["Now Try To Use New Function"]
 		}
 	],
-	"examples":[
+	"functions":[
 		{
 			"id": 1,
-			"name": "goRight",
-			"gameMap": {
-				"width" : 5,
-				"height" : 1,
-				"obstacles" : []
-			},
-			"introductionText": ["Move Your Robot Right!"],
-			"startCode": null
+			"functions":[
+				"goRight"
+			]
+		},
+		{
+			"id": 2,
+			"functions":[
+				"goRight", "goDown"
+			]
 		}
 	]
 }

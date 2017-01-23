@@ -18,13 +18,24 @@ export default class FunctionHelper extends React.Component{
     }
 
     componentDidMount(){
-        this.functionClient.loadAllFunctions(function (result) {
-            let buttons = result.map(
-                (result) => (<button key={result.name} className={styles.savedFunctionButton} onClick={this.onFunctionClicked.bind(this)}>{result.name}</button>)
+        this.loadFunctionButtons();
+    }
+
+    componentDidUpdate(){
+        this.loadFunctionButtons();
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        return this.props.levelNumber !== nextProps.levelNumber;
+    }
+
+    loadFunctionButtons(){
+        this.functionClient.loadFunction(this.props.levelNumber, function (result) {
+            let buttons = result.functions.map(
+                (functionName) => (<button key={result.name} className={styles.savedFunctionButton} onClick={this.onFunctionClicked.bind(this)}>{functionName}</button>)
             );
             this.setState({
-                functionButtons: buttons,
-                examples: result
+                functionButtons: buttons
             });
         }.bind(this))
     }

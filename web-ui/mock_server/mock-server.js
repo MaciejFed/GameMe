@@ -9,7 +9,8 @@ server.use(jsonServer.bodyParser);
 
 server.use(function (req, res, next) {
     if (req.method === 'POST') {
-        res.jsonp(["Right", "Right", "Right", "Right"]);
+        console.log(req.body.path);
+        res.jsonp(req.body.path)
     }
 
     next()

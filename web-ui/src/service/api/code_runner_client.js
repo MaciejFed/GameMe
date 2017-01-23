@@ -3,7 +3,7 @@ import * as $ from "jquery";
 
 export default class CodeRunnerClient {
     loadRoad(levelNumber, path, startPoint) {
-        const body = {"startPoint": "[0,  0]"};
+        const body = {"startPoint": "[0,  0]", "path": path};
         let result = [];
         $.ajax({
             url : API_URL + "/level/" + levelNumber,

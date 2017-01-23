@@ -9,13 +9,14 @@ export default class EnterTextAnimation extends React.Component{
         this.state = {
             displayText: '',
             counter: 0,
-            currentText: ''
+            currentText: this.props.introductionText[0]
         };
+        this.appendEnterText();
     }
 
     render(){
         let innerSpan = (
-            <span style={{color: ENTER_TEXT_COLOR, fontSize: 22}}>
+            <span key={this.props.introductionText[0]} style={{color: ENTER_TEXT_COLOR, fontSize: 22}}>
                 {this.state.displayText}
             </span>);
         return(
@@ -32,6 +33,10 @@ export default class EnterTextAnimation extends React.Component{
             currentText: nextProps.introductionText[0]
         });
         this.timeout = setTimeout(this.appendEnterText.bind(this), 100);
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.timeout);
     }
 
     appendEnterText(){

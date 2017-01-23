@@ -4,7 +4,7 @@ import EnterTextAnimation from './components/EnterTextAnimation/EnterTextAnimati
 import styles from './codeeditor.css';
 const WRONG_FUNCTION = '#882104';
 const CORRECT_FUNCTION = '#88994a';
-const DICTIONARY = ["code", "for", "while", "if", "int", "goRight();"];
+const DICTIONARY = ["code", "for", "while", "if", "int", "goRight();", "goDown();"];
 
 export default class CodeEditor extends React.Component{
     constructor(props){
@@ -66,9 +66,15 @@ export default class CodeEditor extends React.Component{
     appendText(text){
         this.inputArea.value = this.inputArea.value + text;
         this.setState({
-            text: CodeEditor.format(this.inputArea.value)
+            text: CodeEditor.format(this.inputArea.value),
+            animationEnded: true,
+            textVisibility: 'visible',
         });
         this.focusOnInput();
+    }
+
+    getCode(){
+        return this.inputArea.value.split(" ");
     }
 
     static format(text){
@@ -79,7 +85,8 @@ export default class CodeEditor extends React.Component{
         let wordStyle = CORRECT_FUNCTION;
         if(DICTIONARY.indexOf(word) === -1)
             wordStyle = WRONG_FUNCTION;
+        let codeSpan = (<span key={index} style={{color: wordStyle, fontSize: 22}}> {word}</span>);
 
-        return <span key={index} style={{color: wordStyle, fontSize: 22}}> {word}</span>
+        return wordStyle === CORRECT_FUNCTION ? (<div>{codeSpan} </div>) : codeSpan;
     };
 }
