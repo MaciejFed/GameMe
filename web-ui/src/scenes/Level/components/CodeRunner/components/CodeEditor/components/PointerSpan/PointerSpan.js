@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './pointerspan.css'
-export default class Pointer extends React.Component{
+
+export default class PointerSpan extends React.Component{
     constructor(){
         super();
         this.animationTimeout = null;
