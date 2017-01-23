@@ -27,7 +27,6 @@ export default class Level extends React.Component{
                 gameMap: new GameMap(result)
             });
         }.bind(this));
-
     }
 
     getLastLevelPlayed(){
