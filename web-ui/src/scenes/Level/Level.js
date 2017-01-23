@@ -9,13 +9,16 @@ export default class Level extends React.Component{
     constructor(){
         super();
         this.mapClient = new MapClient();
-        this.state = {};
+        this.state = {
+            introductionText: [''],
+            startCode: ''
+        };
     }
 
     render(){
         return(
             <div className={styles.level}>
-                <CodeRunner />
+                <CodeRunner showExample={this.showExample.bind(this)} startCode={this.state.startCode} introductionText={this.state.introductionText}/>
                 <Board gameMap={this.state.gameMap} levelNumber={this.getLastLevelPlayed()}/>
             </div>
         )
@@ -24,12 +27,21 @@ export default class Level extends React.Component{
     componentDidMount() {
         this.mapClient.loadMap(this.getLastLevelPlayed(), function (result, status) {
             this.setState({
-                gameMap: new GameMap(result)
+                gameMap: new GameMap(result.gameMap),
+                introductionText: result.introductionText
             });
         }.bind(this));
     }
 
+    showExample(example){
+        // this.setState({
+        //     gameMap: new GameMap(example.gameMap),
+        //     introductionText: example.introductionText,
+        //     startCode: example.startCode.join(' ')
+        // });
+    }
+
     getLastLevelPlayed(){
-        return 125;
+        return 1;
     }
 }

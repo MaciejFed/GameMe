@@ -1,0 +1,13 @@
+.functionButtonsContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.savedFunctionButton{
+    height: 35px;
+    width: 70px;
+    margin-bottom: 2px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

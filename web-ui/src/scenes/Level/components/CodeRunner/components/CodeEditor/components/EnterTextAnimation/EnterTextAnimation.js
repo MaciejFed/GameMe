@@ -1,51 +1,69 @@
 import React from 'react';
 import PointerSpan from '../PointerSpan/PointerSpan'
 const ENTER_TEXT_COLOR = '#88994a';
-const ENTER_TEXT = "Write Your Code Here!";
 
 export default class EnterTextAnimation extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        this.timeout = null;
         this.state = {
-            enterText: ''
-        }
+            displayText: '',
+            counter: 0,
+            currentText: ''
+        };
     }
 
     render(){
         let innerSpan = (
             <span style={{color: ENTER_TEXT_COLOR, fontSize: 22}}>
-                {this.state.enterText}
+                {this.state.displayText}
             </span>);
         return(
             <PointerSpan text={innerSpan} />
         )
     }
 
-    componentDidMount() {
-        setTimeout(this.appendEnterText.bind(this), 100);
+    componentWillReceiveProps(nextProps){
+        if(this.timeout)
+            clearTimeout(this.timeout);
+        this.setState({
+            displayText: '',
+            counter: 0,
+            currentText: nextProps.introductionText[0]
+        });
+        this.timeout = setTimeout(this.appendEnterText.bind(this), 100);
     }
 
     appendEnterText(){
-        if(this.state.enterText.length < ENTER_TEXT.length){
+        if(this.state.displayText.length < this.state.currentText.length){
             this.setState({
-                enterText: ENTER_TEXT.substr(0, this.state.enterText.length + 1)
+                displayText: this.state.currentText.substr(0, this.state.displayText.length + 1)
             });
-            setTimeout(this.appendEnterText.bind(this), 100);
+            this.timeout = setTimeout(this.appendEnterText.bind(this), 100);
         }else{
-            setTimeout(function(){
+            this.timeout = setTimeout(function(){
                 this.subEnterText();
             }.bind(this), 2000);
         }
     }
 
     subEnterText(){
-        if(this.state.enterText.length > 0){
+        if(this.state.displayText.length > 0){
             this.setState({
-                enterText: ENTER_TEXT.substr(0, this.state.enterText.length - 1)
+                displayText: this.state.currentText.substr(0, this.state.displayText.length - 1)
             });
-            setTimeout(this.subEnterText.bind(this), 75);
+            this.timeout = setTimeout(this.subEnterText.bind(this), 75);
         }else{
-            this.props.endCallback();
+            if(this.state.counter + 1 === this.props.introductionText.length){
+                this.props.endCallback();
+            }
+            else {
+                this.setState({
+                    counter: this.state.counter + 1,
+                    currentText: this.props.introductionText[this.state.counter + 1]
+                });
+                this.appendEnterText();
+            }
         }
     }
 
