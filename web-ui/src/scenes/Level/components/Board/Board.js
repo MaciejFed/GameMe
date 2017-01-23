@@ -41,7 +41,7 @@ export default class Board extends React.Component {
 
             );
         else
-            return (<div></div>)
+            return (<div className={stageStyles.board}></div>)
     }
 
     refreshStage() {
