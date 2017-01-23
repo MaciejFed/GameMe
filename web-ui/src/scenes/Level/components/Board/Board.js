@@ -2,12 +2,9 @@ const RECTANGLE_SIZE = window.innerWidth / 20;
 const STAGE_NAME = "gameStage";
 
 import React from 'react';
-import CodeRunner from '../CodeRunner/CodeRunner'
 import stageStyles from './board.css'
-import CodeRunnerClient from '../../../../service/api/code_runner_client';
 import GameObject from './game_object';
 import Direction from './direction';
-const GameMap = require('./game_map');
 const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
 let robot = require("./robot.png");
@@ -17,11 +14,8 @@ export default class Board extends React.Component {
 
     constructor(props) {
         super(props);
-        this.codeRunnerCLient = new CodeRunnerClient();
         this.stage = null;
-        this.levelUrl = null;
         this.robot = new GameObject(new createjs.Shape(), RECTANGLE_SIZE);
-        this.directionValues = [];
     }
 
     componentDidUpdate() {
@@ -31,17 +25,17 @@ export default class Board extends React.Component {
     render() {
         if (this.props.gameMap != undefined)
             return (
-                <div id="board" className={stageStyles.board} >
+                <div key={this.props.levelNumber} id="board" className={stageStyles.board} >
                         <canvas id="gameStage"
                                 width={RECTANGLE_SIZE * this.props.gameMap.width}
                                 height={RECTANGLE_SIZE * this.props.gameMap.height}>
                         </canvas>
-                        <button onClick={() => this.animateBall(this.directionValues)} className={stageStyles.animateButton}>Animate</button>
+                        <button onClick={() => this.animateBall(this.props.getDirectionValues())} className={stageStyles.animateButton}>Animate</button>
                 </div>
 
             );
         else
-            return (<div className={stageStyles.board}></div>)
+            return (<div className={stageStyles.board}>Loading...</div>)
     }
 
     refreshStage() {
@@ -53,7 +47,6 @@ export default class Board extends React.Component {
             this.renderRectangles();
             this.stage.update();
         }.bind(this);
-
     }
 
     initStage(robot){
@@ -85,15 +78,16 @@ export default class Board extends React.Component {
     }
 
     animateBall(directionsValues) {
-        const directions = this.codeRunnerCLient.loadRoad(this.props.levelNumber, directionsValues, this.robot.getPoint()).map(Direction.mapToDirection);
-        console.log(directions);
+        const directions = directionsValues.map(Direction.mapToDirection);
         const circleTween = createjs.Tween.get(this.robot.bitmapObject);
         for (let i = 0; i < directions.length; i++) {
                 this.robot.applyDirection(directions[i]);
                 circleTween.to({x: this.robot.x, y: this.robot.y}, 1000, createjs.Ease.getPowInOut(4));
-            }
-            createjs.Ticker.setFPS(60);
-            createjs.Ticker.addEventListener("tick", this.stage);
+
+        }
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener("tick", this.stage);
+        setTimeout(this.props.nextLevel, 1000 * directions.length + 1);
     }
 
 };

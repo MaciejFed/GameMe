@@ -11,27 +11,38 @@ export default class Level extends React.Component{
         this.mapClient = new MapClient();
         this.state = {
             introductionText: [''],
-            startCode: ''
+            startCode: '',
+            currentLevel: 1
         };
     }
 
     render(){
         return(
             <div className={styles.level}>
-                <CodeRunner showExample={this.showExample.bind(this)} startCode={this.state.startCode} introductionText={this.state.introductionText}/>
-                <Board gameMap={this.state.gameMap} levelNumber={this.getLastLevelPlayed()}/>
+                <CodeRunner ref="codeRunner" showExample={this.showExample.bind(this)} startCode={this.state.startCode} introductionText={this.state.introductionText} levelNumber={this.state.currentLevel}/>
+                <Board nextLevel={this.nextLevel.bind(this)} getDirectionValues={this.getDirectionValues.bind(this)} gameMap={this.state.gameMap} levelNumber={this.state.currentLevel - 1}/>
             </div>
         )
     }
 
     componentDidMount() {
-        this.mapClient.loadMap(this.getLastLevelPlayed(), function (result, status) {
+        this.nextLevel();
+    }
+
+    getDirectionValues(){
+        return this.refs.codeRunner.getDirectionValues();
+    }
+
+    nextLevel(){
+        this.mapClient.loadMap(this.state.currentLevel, function (result, status) {
             this.setState({
                 gameMap: new GameMap(result.gameMap),
-                introductionText: result.introductionText
+                introductionText: result.introductionText,
+                currentLevel: this.state.currentLevel + 1
             });
         }.bind(this));
     }
+
 
     showExample(example){
         // this.setState({
@@ -41,7 +52,4 @@ export default class Level extends React.Component{
         // });
     }
 
-    getLastLevelPlayed(){
-        return 1;
-    }
 }

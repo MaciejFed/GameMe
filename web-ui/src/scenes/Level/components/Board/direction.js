@@ -9,14 +9,16 @@ export default class Direction{
 
     static mapToDirection(stringDirection){
         switch (stringDirection) {
-            case "Up":
+            case "goUp();":
                 return new Direction(0, -RECTANGLE_SIZE);
-            case "Right":
+            case "goRight();":
                 return new Direction(RECTANGLE_SIZE, 0);
-            case "Down":
+            case "goDown();":
                 return new Direction(0, RECTANGLE_SIZE);
-            case "Left":
+            case "goLeft();":
                 return new Direction(-RECTANGLE_SIZE, 0);
+            default:
+                return new Direction(0, 0);
         }
     }
 }
