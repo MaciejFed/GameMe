@@ -31,7 +31,7 @@ export default class PointerSpan extends React.Component{
     }
 
     componentDidMount(){
-        this.animationTimeout = setTimeout(this.animatePointer.bind(this), 1000);
+        this.animationTimeout = setTimeout(this.animatePointer.bind(this), INITIAL_DELAY);
     }
 
     componentWillUnmount() {
@@ -49,7 +49,7 @@ export default class PointerSpan extends React.Component{
         this.setState({
             initialState: false
         });
-        this.animationTimeout = setTimeout(this.animatePointer.bind(this), 500);
+        this.animationTimeout = setTimeout(this.animatePointer.bind(this), ANIMATION_DELAY);
     }
 
 }
