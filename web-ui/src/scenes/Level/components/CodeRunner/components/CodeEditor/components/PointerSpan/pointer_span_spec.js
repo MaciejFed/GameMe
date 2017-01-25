@@ -58,7 +58,7 @@ describe('Component: PointerSpan', () => {
         expect(wrapper.state('initialState')).toEqual(false);
     });
 
-    it('makes loop after initial delay a 2 x animation delay', () => {
+    it('makes loop after initial delay and 2 x animation delay', () => {
         const wrapper = mount(<PointerSpan/>);
 
         clock.tick(INITIAL_DELAY + ANIMATION_DELAY * 2 + 50);
