@@ -1,5 +1,9 @@
 import React from 'react';
 import style from './pointerspan.css'
+import * as PropTypes from "react/lib/ReactPropTypes";
+
+export const INITIAL_DELAY = 1000;
+export const ANIMATION_DELAY = 500;
 
 export default class PointerSpan extends React.Component{
     constructor(){
@@ -49,3 +53,7 @@ export default class PointerSpan extends React.Component{
     }
 
 }
+
+PointerSpan.propTypes = {
+    text: PropTypes.string,
+};
