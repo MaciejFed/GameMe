@@ -1,6 +1,10 @@
 import React from 'react';
+import * as PropTypes from "react/lib/ReactPropTypes";
 import PointerSpan from '../PointerSpan/PointerSpan'
 const ENTER_TEXT_COLOR = '#88994a';
+export const APPEND_CHARACTER_DELAY = 100;
+export const SUBTRACT_CHARACTER_DELAY = 75;
+export const APPENDING_DONE_DELAY = 2000;
 
 export default class EnterTextAnimation extends React.Component{
     constructor(props){
@@ -27,12 +31,12 @@ export default class EnterTextAnimation extends React.Component{
     componentWillReceiveProps(nextProps){
         if(this.timeout)
             clearTimeout(this.timeout);
-        this.setState({
+        this.text({
             displayText: '',
             counter: 0,
             currentText: nextProps.introductionText[0]
         });
-        this.timeout = setTimeout(this.appendEnterText.bind(this), 100);
+        this.timeout = setTimeout(this.appendEnterText.bind(this), APPEND_CHARACTER_DELAY);
     }
 
     componentWillUnmount(){
@@ -44,11 +48,11 @@ export default class EnterTextAnimation extends React.Component{
             this.setState({
                 displayText: this.state.currentText.substr(0, this.state.displayText.length + 1)
             });
-            this.timeout = setTimeout(this.appendEnterText.bind(this), 100);
+            this.timeout = setTimeout(this.appendEnterText.bind(this), APPEND_CHARACTER_DELAY);
         }else{
             this.timeout = setTimeout(function(){
                 this.subEnterText();
-            }.bind(this), 2000);
+            }.bind(this), APPENDING_DONE_DELAY);
         }
     }
 
@@ -57,12 +61,11 @@ export default class EnterTextAnimation extends React.Component{
             this.setState({
                 displayText: this.state.currentText.substr(0, this.state.displayText.length - 1)
             });
-            this.timeout = setTimeout(this.subEnterText.bind(this), 75);
+            this.timeout = setTimeout(this.subEnterText.bind(this), SUBTRACT_CHARACTER_DELAY);
         }else{
             if(this.state.counter + 1 === this.props.introductionText.length){
                 this.props.endCallback();
-            }
-            else {
+            }else {
                 this.setState({
                     counter: this.state.counter + 1,
                     currentText: this.props.introductionText[this.state.counter + 1]
@@ -71,5 +74,9 @@ export default class EnterTextAnimation extends React.Component{
             }
         }
     }
-
 }
+
+EnterTextAnimation.PropTypes = {
+    introductionText: Array.of(String).isRequired,
+    endCallback: Function.isRequired
+};
