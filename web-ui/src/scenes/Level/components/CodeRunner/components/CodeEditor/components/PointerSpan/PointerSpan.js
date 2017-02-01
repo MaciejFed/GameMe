@@ -1,5 +1,9 @@
 import React from 'react';
 import style from './pointerspan.css'
+import * as PropTypes from "react/lib/ReactPropTypes";
+
+export const INITIAL_DELAY = 1000;
+export const ANIMATION_DELAY = 500;
 
 export default class PointerSpan extends React.Component{
     constructor(){
@@ -27,7 +31,7 @@ export default class PointerSpan extends React.Component{
     }
 
     componentDidMount(){
-        this.animationTimeout = setTimeout(this.animatePointer.bind(this), 1000);
+        this.animationTimeout = setTimeout(this.animatePointer.bind(this), INITIAL_DELAY);
     }
 
     componentWillUnmount() {
@@ -45,7 +49,11 @@ export default class PointerSpan extends React.Component{
         this.setState({
             initialState: false
         });
-        this.animationTimeout = setTimeout(this.animatePointer.bind(this), 500);
+        this.animationTimeout = setTimeout(this.animatePointer.bind(this), ANIMATION_DELAY);
     }
 
 }
+
+PointerSpan.propTypes = {
+    text: PropTypes.string,
+};
