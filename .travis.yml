@@ -7,4 +7,4 @@ jdk:
 
 script: 
 - gradle build 
-- curl -X POST http://104.199.166.4:8999/restart 
+- curl -X POST http://104.199.166.4:8999/restart &
