@@ -2,7 +2,7 @@ package com.mfed.api.controllers
 
 import com.mfed.api.converters.GameMapSerializatiors._
 import com.mfed.dto._
-import com.mfed.services.{GameMapService, PathService}
+import com.mfed.services.{FunctionService, GameMapService, RoadService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation._
@@ -21,7 +21,10 @@ class GameMapController {
   private val gameMapService: GameMapService = null
 
   @Autowired
-  private val pathService: PathService = null
+  private val roadService: RoadService = null
+
+  @Autowired
+  private val functionService: FunctionService = null
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.GET))
   def getGameMap(@PathVariable levelNumber: Int): ResponseEntity[GameMapDTO] = {
@@ -29,10 +32,12 @@ class GameMapController {
   }
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.POST))
-  def map(@PathVariable levelNumber: Int, @RequestBody pathRequestDTO: PathRequestDTO): ResponseEntity[java.util.List[String]] = {
-    val path = pathService.validatePathInLevel(levelNumber, (pathRequestDTO.startPoint.x, pathRequestDTO.startPoint.y),  pathRequestDTO.path.toList)
+  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody codeRequestDTO: CodeRequestDTO): ResponseEntity[java.util.List[MoveDTO]] = {
+    val gameMap = gameMapService.getGameMap(levelNumber)
+    val functions = functionService.produceFunctionsFromCode(codeRequestDTO.code.toList)
+    val road = roadService.runMovingCodeOnLevel(gameMap, functions)
 
-    new ResponseEntity[java.util.List[String]](path, HttpStatus.OK)
+    new ResponseEntity[java.util.List[MoveDTO]](road, HttpStatus.OK)
   }
 
   @ExceptionHandler(value = Array(classOf[Exception]))
