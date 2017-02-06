@@ -9,7 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document
   */
 
 @Document
-case class GameMap(@Id id: String, levelNumber: Integer, width: Integer, height: Integer, obstacles: java.util.List[Obstacle]){}
+case class GameMap(@Id id: String, levelNumber: Integer, width: Integer, height: Integer, obstacles: java.util.List[(Int, Int)],
+                   introductionText: java.util.List[String], functions: java.util.List[String]){
+  def produceInitialState() = GameMapState(this, RobotState())
+}
 
 case class Obstacle(x: Integer, y: Integer)
 
