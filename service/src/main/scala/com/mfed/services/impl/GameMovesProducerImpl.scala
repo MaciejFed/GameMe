@@ -1,6 +1,6 @@
 package com.mfed.services.impl
 
-import com.mfed.model.{GameMapState, RobotState, Move}
+import com.mfed.model.{GameMapState, Move, RobotState}
 import com.mfed.services.MovesProducer
 import org.springframework.stereotype.Component
 
@@ -44,7 +44,8 @@ trait DifferenceToMoveProducer[A <: GameStateDifference]{
 class RobotStateDifferenceMoveProducer extends DifferenceToMoveProducer[RobotStateDifference]{
   override def produceMove(gameStateDifference: RobotStateDifference): Move = {
     Move(gameStateDifference.after.point._1 - gameStateDifference.before.point._1,
-      gameStateDifference.after.point._2 - gameStateDifference.before.point._2, 0)
+      gameStateDifference.after.point._2 - gameStateDifference.before.point._2,
+      gameStateDifference.after.rotation - gameStateDifference.before.rotation)
   }
 }
 

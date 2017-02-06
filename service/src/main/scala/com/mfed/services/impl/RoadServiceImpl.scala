@@ -18,12 +18,11 @@ class RoadServiceImpl extends RoadService{
   val movesProducer: MovesProducer = null
 
   override def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => GameMapState]) = {
-    val gameMapInitialState = GameMapState(gameMap, null)
+    val gameMapInitialState = gameMap.produceInitialState()
 
     val gameStates = moveFunctionList
       .scan(moveFunctionList.head)((a, b) => b.compose(a))
       .map(_ apply gameMapInitialState)
-      .tail
 
     gameStates
       .zip(gameStates.tail)

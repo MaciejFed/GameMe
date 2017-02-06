@@ -1,7 +1,9 @@
 package com.mfed.service
 
+import java.util
+
 import com.mfed.GameMeApplication
-import com.mfed.model.{GameMapState, RobotState}
+import com.mfed.model.{GameMap, GameMapState, RobotState}
 import com.mfed.services.RoadService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,7 +36,7 @@ import org.springframework.test.context.web.WebAppConfiguration
       gameMapState.copy(robotState = RobotState((5, 5)))
     }
 
-    val gameMoves = roadService.runMovingCodeOnLevel(null, List(firstGameStateChange, secondGameStateChange, thirdGameStateChange))
+    val gameMoves = roadService.runMovingCodeOnLevel(TestGameMap, List(firstGameStateChange, secondGameStateChange, thirdGameStateChange))
 
     assert(gameMoves(0).x.equals(1) && gameMoves(0).y.equals(1))
     assert(gameMoves(1).x.equals(3) && gameMoves(1).y.equals(3))
@@ -53,11 +55,13 @@ import org.springframework.test.context.web.WebAppConfiguration
       gameMapState.copy(robotState = RobotState((1, 1)))
     }
 
-    val gameMoves = roadService.runMovingCodeOnLevel(null, List(firstGameStateChange, secondGameStateChange, thirdGameStateChange))
+    val gameMoves = roadService.runMovingCodeOnLevel(TestGameMap, List(firstGameStateChange, secondGameStateChange, thirdGameStateChange))
 
     assert(gameMoves(0).x.equals(0) && gameMoves(0).y.equals(0))
     assert(gameMoves(1).x.equals(0) && gameMoves(1).y.equals(0))
     assert(gameMoves.size.equals(2))
   }
-
+  def TestGameMap = {
+    GameMap("1", 1, 1, 1, new util.LinkedList[(Int, Int)]())
+  }
 }
