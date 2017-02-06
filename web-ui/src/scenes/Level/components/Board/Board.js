@@ -23,7 +23,7 @@ export default class Board extends React.Component {
     }
 
     render() {
-        if (this.props.gameMap != undefined)
+        if (this.props.gameMap)
             return (
                 <div key={this.props.levelNumber} id="board" className={stageStyles.board} >
                         <canvas id="gameStage"

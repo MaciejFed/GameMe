@@ -8,7 +8,8 @@
 				"obstacles" : [
 				]
 			},
-			"introductionText": ["Write Your Code Here!", "...or Click On Function Button"]
+			"introductionText": ["Write Your Code Here!", "...or Click On Function Button"],
+			"functions": ["goRight"]
 		},
 		{
 			"id" : 2,
@@ -22,7 +23,8 @@
 					}
 				]
 			},
-			"introductionText": ["Now Try To Use New Function"]
+			"introductionText": ["Now Try To Use New Function"],
+			"functions" : ["goRight", "goDown"]
 		}
 	],
 	"functions":[

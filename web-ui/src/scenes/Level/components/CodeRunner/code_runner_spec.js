@@ -17,14 +17,14 @@ describe('Component: CodeRunner', () => {
         ).toEqual(1);
     });
 
-    it('focus on input when click event on div', () => {
-        const wrapper = mount(<CodeRunner />);
-        let inputContainer = wrapper.find('#code-container');
-
-        inputContainer.simulate('click');
-
-        expect(inputContainer.find('input').node).toEqual(document.activeElement);
-    });
+    // it('focus on input when click event on div', () => {
+    //     const wrapper = mount(<CodeRunner />);
+    //     let inputContainer = wrapper.find('#code-container');
+    //
+    //     inputContainer.simulate('click');
+    //
+    //     expect(inputContainer.find('input').node).toEqual(document.activeElement);
+    // });
 
     it('changes text when input on div');
     it('saves code on successful compile response');

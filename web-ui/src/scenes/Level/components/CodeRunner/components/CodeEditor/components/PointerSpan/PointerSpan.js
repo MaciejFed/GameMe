@@ -55,5 +55,5 @@ export default class PointerSpan extends React.Component{
 }
 
 PointerSpan.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.object,
 };

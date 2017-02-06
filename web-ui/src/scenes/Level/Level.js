@@ -2,30 +2,28 @@ import React from 'react';
 import CodeRunner from './components/CodeRunner/CodeRunner';
 import Board from './components/Board/Board'
 import GameMap from './components/Board/game_map'
-import MapClient from './../../service/api/map_client';
 import styles from './level.css'
+import { connect } from 'react-redux'
+import { LOAD_LEVEL } from './levelActions'
 
-export default class Level extends React.Component{
-    constructor(){
-        super();
-        this.mapClient = new MapClient();
-        this.state = {
-            introductionText: [''],
-            startCode: '',
-            currentLevel: 1
-        };
+@connect((store) => {
+    return {
+        level: store.levelReducer.level,
+        isLevelLoading: store.levelReducer.isLevelLoading
     }
+})
+export default class Level extends React.Component{
 
     render(){
         return(
             <div className={styles.level}>
-                <CodeRunner ref="codeRunner" showExample={this.showExample.bind(this)} startCode={this.state.startCode} introductionText={this.state.introductionText} levelNumber={this.state.currentLevel}/>
-                <Board nextLevel={this.nextLevel.bind(this)} getDirectionValues={this.getDirectionValues.bind(this)} gameMap={this.state.gameMap} levelNumber={this.state.currentLevel - 1}/>
+                <CodeRunner ref="codeRunner" showExample={this.showExample.bind(this)} startCode={this.props.level.startCode} introductionText={this.props.level.introductionText} levelNumber={this.props.level.number}/>
+                <Board nextLevel={this.nextLevel.bind(this)} getDirectionValues={this.getDirectionValues.bind(this)} gameMap={new GameMap(this.props.level.gameMap)} levelNumber={this.props.level.number - 1}/>
             </div>
         )
     }
 
-    componentDidMount() {
+    componentWillMount(){
         this.nextLevel();
     }
 
@@ -34,13 +32,7 @@ export default class Level extends React.Component{
     }
 
     nextLevel(){
-        this.mapClient.loadMap(this.state.currentLevel, function (result, status) {
-            this.setState({
-                gameMap: new GameMap(result.gameMap),
-                introductionText: result.introductionText,
-                currentLevel: this.state.currentLevel + 1
-            });
-        }.bind(this));
+        LOAD_LEVEL(this.props.level.number)(this.props.dispatch.bind(this));
     }
 
 
