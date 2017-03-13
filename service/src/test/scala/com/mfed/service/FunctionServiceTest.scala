@@ -3,7 +3,7 @@ package com.mfed.service
 import java.util
 
 import com.mfed.GameMeApplication
-import com.mfed.model.{GameMap, GameMapState, RobotState}
+import com.mfed.model.GameMap
 import com.mfed.services.FunctionService
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,13 +28,13 @@ import org.springframework.test.context.web.WebAppConfiguration
   def shouldConvertStringCodeToFunctionsAndExecuteThemChangingStateInCorrectWay(): Unit = {
     val codeFunctions = List("go();", "go(9);", "wrongFunction();", "rotateRight();")
     val functions = functionService.produceFunctionsFromCode(codeFunctions)
-    val gameMap = GameMap("1", 1, 7, 7, new util.LinkedList[(Int, Int)]())
-    val gameMapState = GameMapState(gameMap, RobotState())
+    val gameMap = GameMap(7, 7, new util.LinkedList[(Int, Int)]())
+    val gameMapState = gameMap.produceInitialState()
 
     assert(functions.size.equals(4))
     assert(functions(0)(gameMapState).robotState.point._1.equals(1))
     assert(functions(1)(gameMapState).robotState.point._1.equals(6))
     assert(functions(2)(gameMapState).robotState.point._1.equals(0))
-    assert(functions(3)(gameMapState).robotState.rotation.equals(1))
+    assert(functions(3)(gameMapState).robotState.rotation.equals(2))
   }
 }

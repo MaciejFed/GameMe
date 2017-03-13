@@ -1,6 +1,6 @@
 package com.mfed.services
 
-import com.mfed.model.{GameMap, GameMapState, Move}
+import com.mfed.model.{ExecutionResult, GameMap, GameMapState}
 
 /**
   * Created by Maciej Fedorowiat 
@@ -8,5 +8,5 @@ import com.mfed.model.{GameMap, GameMapState, Move}
   * mfedorowiat@gmail.com
   */
 trait RoadService {
-  def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => GameMapState]): List[Move]
+  def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => GameMapState]): ExecutionResult
 }

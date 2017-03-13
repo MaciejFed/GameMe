@@ -5,26 +5,22 @@ const EMPTY_GAME_MAP = {
     obstacles: []
     }
 };
-export default function (state={
+
+const EMPTY_LEVEL = {
     level: {
-        number: 1,
+        number: 0,
         introductionText: [''],
         startCode: '',
         gameMap: EMPTY_GAME_MAP,
         functions: []
     },
     isLevelLoading: false
-}, action) {
+};
+
+export default function (state=EMPTY_LEVEL, action) {
     switch (action.type){
         case "LOAD_LEVEL":
-            return{
-                isLevelLoading: true,
-                level: {
-                    number: action.payload,
-                    gameMap: undefined,
-                    functions: []
-                }
-            };
+            return EMPTY_LEVEL;
         case "LOAD_LEVEL_FULFILLED":
             return {
                 level: action.payload,

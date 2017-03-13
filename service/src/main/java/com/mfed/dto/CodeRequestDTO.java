@@ -16,4 +16,12 @@ public class CodeRequestDTO {
     public CodeRequestDTO(List<String> code) {
         this.code = code;
     }
+
+    public void setCode(List<String> code) {
+        this.code = code;
+    }
+
+    public List<String> getCode() {
+        return code;
+    }
 }

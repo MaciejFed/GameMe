@@ -1,6 +1,6 @@
 package com.mfed.services.impl
 
-import com.mfed.model.{GameMap, GameMapState}
+import com.mfed.model.{ExecutionResult, GameMap, GameMapState, Move}
 import com.mfed.services.{MovesProducer, RoadService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -19,14 +19,20 @@ class RoadServiceImpl extends RoadService{
 
   override def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => GameMapState]) = {
     val gameMapInitialState = gameMap.produceInitialState()
+    val identify: GameMapState => GameMapState = g => g
 
     val gameStates = moveFunctionList
-      .scan(moveFunctionList.head)((a, b) => b.compose(a))
+      .scan(identify)((a, b) => b.compose(a))
+      .tail
       .map(_ apply gameMapInitialState)
+      .::(gameMapInitialState)
 
-    gameStates
-      .zip(gameStates.tail)
-      .map(s => movesProducer.produceMovesFromGameStates(s._1, s._2))
+    val moves = gameStates
+        .zip(gameStates.tail)
+        .map(s => movesProducer.produceMovesFromGameStates(s._1, s._2))
+        .filter(m => !m.equals(Move.emptyMove))
+
+    ExecutionResult(moves, gameStates.last.robotState.point.equals(gameMap.endPoint))
   }
 }
 

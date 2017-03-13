@@ -8,12 +8,15 @@ server.use(jsonServer.bodyParser);
 
 
 server.use(function (req, res, next) {
-    if (req.method === 'POST') {
-        console.log(req.body.path);
-        res.jsonp(req.body.path)
-    }
-
-    next()
+    setTimeout(function () {
+        if (req.method === 'POST') {
+            res.jsonp({
+                success: true,
+                road: [{dX: 1, dY: 0}]}
+            )
+        }
+        next()
+    }.bind(this), 1000)
 });
 
 

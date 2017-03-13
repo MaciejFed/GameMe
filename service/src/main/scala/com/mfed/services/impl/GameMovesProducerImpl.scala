@@ -50,7 +50,5 @@ class RobotStateDifferenceMoveProducer extends DifferenceToMoveProducer[RobotSta
 }
 
 class NoDifferenceMoveProducer extends DifferenceToMoveProducer[NoDifference]{
-  override def produceMove(gameStateDifference: NoDifference): Move = {
-    Move(0, 0, 0)
-  }
+  override def produceMove(gameStateDifference: NoDifference): Move = Move.emptyMove
 }
