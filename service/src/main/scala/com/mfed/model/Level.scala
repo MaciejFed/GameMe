@@ -16,7 +16,7 @@ case class GameMap(width: Integer, height: Integer, obstacles: java.util.List[(I
     (width - 1, height - 1)
   }
 
-  def produceInitialState() = GameMapState(this, RobotState())
+  def produceInitialState() = GameMapState(this, RobotState(), Map())
 }
 
 case class Obstacle(x: Integer, y: Integer)

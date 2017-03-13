@@ -1,11 +1,12 @@
 package com.mfed.scenario
 
 import com.mfed.GameMeApplication
-import com.mfed.scenario.helpers.ScenarioWithSimpleMoveAhead._
-import com.mfed.scenario.helpers.ScenarioWithSimpleObstacle._
-import com.mfed.scenario.helpers.ScenarioWithDoubleRotateFunctions._
-import com.mfed.scenario.helpers.ScenarioWithSingleRotate._
-import com.mfed.scenario.helpers.ScenarioWithFunctionParameters._
+import com.mfed.scenario.helpers.functions.ScenarioWithDoubleRotateFunctions._
+import com.mfed.scenario.helpers.functions.ScenarioWithFunctionParameters._
+import com.mfed.scenario.helpers.functions.ScenarioWithSimpleMoveAhead._
+import com.mfed.scenario.helpers.functions.ScenarioWithSimpleObstacle._
+import com.mfed.scenario.helpers.functions.ScenarioWithSingleRotate._
+import com.mfed.scenario.helpers.variables.ScenarioWithIntVariable._
 import com.mfed.services.CodeExecutor
 import org.junit.Assert._
 import org.junit.Test
@@ -61,6 +62,13 @@ class CompileCodeScenarioTest {
     val result = codeExecutor.executeCodeOnLevel(scenarioWithFunctionParametersMap, scenarioWithFunctionParametersFunctions)
 
     assertEquals(scenarioWithFunctionParametersExpectedResult, result)
+  }
+
+  @Test
+  def variableTest(): Unit = {
+    val result = codeExecutor.executeCodeOnLevel(scenarioWithIntVariableMap, scenarioWithIntVariableFunctions)
+
+    assertEquals(scenarioWithIntVariableExpectedResult, result)
   }
 
 }
