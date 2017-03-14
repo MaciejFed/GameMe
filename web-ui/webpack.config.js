@@ -24,7 +24,11 @@ var config = {
         {
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
+            loader: 'babel-loader',
+            query: {
+                presets: ['react', 'es2015'],
+                plugins: ['transform-class-properties', 'transform-decorators-legacy']
+            }
         },
         {
             test: /\.css$/,

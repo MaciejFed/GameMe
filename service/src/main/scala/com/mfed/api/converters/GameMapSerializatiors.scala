@@ -1,7 +1,7 @@
 package com.mfed.api.converters
 
-import com.mfed.dto.{GameMapDTO, MoveDTO, ObstacleDTO}
-import com.mfed.model.{GameMap, Move, Obstacle}
+import com.mfed.dto._
+import com.mfed.model._
 
 import scala.collection.JavaConversions._
 import scala.collection.JavaConverters._
@@ -10,13 +10,18 @@ import scala.collection.JavaConverters._
   * on 28/07/2016 14:53.
   * mfedorowiat@gmail.com
   */
+
 object GameMapSerializatiors {
+
+  implicit def serializeLevel(level: Level): LevelDTO = {
+    new LevelDTO(level.gameMap, level.introductionText, level.functions, level.number)
+  }
 
 
   implicit def serializeGameMap(gameMap: GameMap): GameMapDTO = {
     val list = gameMap.obstacles.toList.map(o => toObstacleDTO(o)).asJava
 
-    new GameMapDTO(gameMap.id, gameMap.levelNumber, gameMap.width, gameMap.height, list, gameMap.introductionText, gameMap.functions)
+    new GameMapDTO(gameMap.height, gameMap.width, list)
   }
 
   implicit def serializeMoveList(list: List[Move]): java.util.List[MoveDTO] = {
@@ -33,5 +38,9 @@ object GameMapSerializatiors {
 
   def toObstacle(obstacleDTO: ObstacleDTO): Obstacle = {
     Obstacle(obstacleDTO.x, obstacleDTO.y)
+  }
+
+  implicit def toRoadResponseDto(executionResult: ExecutionResult) = {
+    new RoadResponseDTO(executionResult.moves, executionResult.success)
   }
 }

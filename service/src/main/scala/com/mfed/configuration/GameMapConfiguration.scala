@@ -15,7 +15,7 @@ import scala.collection.JavaConversions._
 @EnableMongoRepositories(basePackages = Array("com.mfed.repositories"))
 @ComponentScan(Array("com.mfed")) class GameMapConfiguration extends AbstractMongoConfiguration {
   private val mongoPort: Integer = 27017
-  private val mongoHost: String = "GameMeDB"
+  private val mongoHost: String = "localhost"
   private val mongoDBName: String = "GameMe"
 
   @Bean

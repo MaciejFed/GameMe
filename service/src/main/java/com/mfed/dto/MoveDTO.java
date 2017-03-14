@@ -6,11 +6,11 @@ package com.mfed.dto;
  * mfedorowiat@gmail.com
  */
 public class MoveDTO {
-    public int x, y, rotation;
+    public int dX, dY, rotation;
 
-    public MoveDTO(int x, int y, int rotation){
-        this.x = x;
-        this.y = y;
+    public MoveDTO(int dX, int dY, int rotation){
+        this.dX = dX;
+        this.dY = dY;
         this.rotation = rotation;
     }
 }
