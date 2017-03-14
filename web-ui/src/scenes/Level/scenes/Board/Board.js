@@ -10,6 +10,7 @@ import {LOAD_ROAD, CODE_EXECUTION_ENDED} from "./boardActions";
 const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
 let robot = require("./robot.png");
+let arrow = require("./arrow-right-black.png");
 
 @connect((store) => {
     return({
@@ -33,7 +34,7 @@ export default class Board extends React.Component {
     componentDidUpdate() {
         this.refreshStage();
         if(this.props.isExecutingCode && !this.props.isAnimating)
-            LOAD_ROAD(this.props.levelNumber, {code: this.props.executionCode.split(" ")})(this.props.dispatch);
+            LOAD_ROAD(this.props.levelNumber, {code: this.props.executionCode.split(";").map(s =>( s + ";").replace(/^\s\s*/, '').replace(/\s\s*$/, ''))})(this.props.dispatch);
     }
 
     render() {
@@ -54,11 +55,17 @@ export default class Board extends React.Component {
 
     refreshStage() {
         let robotBitmap = new createjs.Bitmap(robot);
-        this.robot = new GameObject(robotBitmap, RECTANGLE_SIZE);
+        let arrowBitmap = new createjs.Bitmap(arrow);
+        this.robot = new GameObject(robotBitmap, arrowBitmap, RECTANGLE_SIZE);
 
         robotBitmap.image.onload = function() {
             this.initStage(robotBitmap);
             this.renderRectangles();
+            this.stage.update();
+        }.bind(this);
+
+        arrowBitmap.image.onload = function () {
+            this.initArrow(arrowBitmap);
             this.stage.update();
         }.bind(this);
     }
@@ -73,6 +80,17 @@ export default class Board extends React.Component {
         robot.scaleX = scale;
         robot.scaleY = scale;
         this.stage.addChild(robot);
+    }
+
+    initArrow(arrow){
+        let scale = RECTANGLE_SIZE * 0.8 / arrow.getBounds().width * 0.25;
+        arrow.x = RECTANGLE_SIZE * 0.15;
+        arrow.y = RECTANGLE_SIZE * 0.15;
+        arrow.regX = arrow.getBounds().width * 0.5;
+        arrow.regY = arrow.getBounds().height * 0.5;
+        arrow.scaleX = scale;
+        arrow.scaleY = scale;
+        this.stage.addChild(arrow);
     }
 
     renderRectangles(){
@@ -97,10 +115,12 @@ export default class Board extends React.Component {
     animateBall() {
         const road = this.props.roadExecution.road;
         const circleTween = createjs.Tween.get(this.robot.bitmapObject);
+        const arrowTween = createjs.Tween.get(this.robot.bitmapArrow);
         let animationTimeout = 0;
         for (let i = 0; i < road.length; i++) {
                 this.robot.applyDirection(road[i]);
                 circleTween.to({x: this.robot.x, y: this.robot.y}, 1000, createjs.Ease.getPowInOut(4));
+                arrowTween.to({x: this.robot.x, y: this.robot.y, rotation: (this.robot.rotation - 1) * 90}, 1000, createjs.Ease.getPowInOut(4));
                 animationTimeout += 1000;
         }
         let callback = this.props.roadExecution.success ?
