@@ -10,23 +10,14 @@ import java.util.List;
 
 public class GameMapDTO {
 
-    public String id;
-    public int levelNumber;
     public int height;
     public int width;
     public List<ObstacleDTO> obstacles;
-    public List<String> introductionText;
-    public List<String> functions;
 
-    public GameMapDTO(String id, int levelNumber, int height, int width, List<ObstacleDTO> obstacles,
-                      List<String> introductionText, List<String> functions) {
-        this.id = id;
-        this.levelNumber = levelNumber;
+    public GameMapDTO(int height, int width, List<ObstacleDTO> obstacles) {
         this.height = height;
         this.width = width;
         this.obstacles = obstacles;
-        this.introductionText = introductionText;
-        this.functions = functions;
     }
 
     public GameMapDTO(){}
