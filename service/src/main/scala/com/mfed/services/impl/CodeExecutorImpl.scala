@@ -1,6 +1,6 @@
 package com.mfed.services.impl
 
-import com.mfed.model.{ExecutionResult, GameMap}
+import com.mfed.model.{Block, ExecutionResult, GameMap}
 import com.mfed.services.{CodeExecutor, FunctionService, RoadService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -19,8 +19,8 @@ class CodeExecutorImpl extends CodeExecutor{
   @Autowired
   private val functionService: FunctionService = null
 
-  override def executeCodeOnLevel(gameMap: GameMap, code: List[String]): ExecutionResult = {
-    val functions = functionService.produceFunctionsFromCode(code)
+  override def executeCodeOnLevel(gameMap: GameMap, code: List[Block]): ExecutionResult = {
+    val functions = functionService.produceFunctionsFromCodeBlocks(code)
     roadService.runMovingCodeOnLevel(gameMap, functions)
   }
 }

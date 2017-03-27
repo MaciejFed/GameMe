@@ -7,6 +7,7 @@ import com.mfed.scenario.helpers.functions.ScenarioWithSimpleMoveAhead._
 import com.mfed.scenario.helpers.functions.ScenarioWithSimpleObstacle._
 import com.mfed.scenario.helpers.functions.ScenarioWithSingleRotate._
 import com.mfed.scenario.helpers.variables.ScenarioWithIntVariable._
+import com.mfed.scenario.helpers.conditional.ScenarioWithSimpleIfStatement._
 import com.mfed.services.CodeExecutor
 import org.junit.Assert._
 import org.junit.Test
@@ -28,6 +29,7 @@ class CompileCodeScenarioTest {
 
   @Autowired
   val codeExecutor: CodeExecutor = null
+
 
   @Test
   def oneStepAheadTest(): Unit = {
@@ -69,6 +71,20 @@ class CompileCodeScenarioTest {
     val result = codeExecutor.executeCodeOnLevel(scenarioWithIntVariableMap, scenarioWithIntVariableFunctions)
 
     assertEquals(scenarioWithIntVariableExpectedResult, result)
+  }
+
+  @Test
+  def ifStatementTest(): Unit = {
+    val result = codeExecutor.executeCodeOnLevel(scenarioWithSimpleIfStatementMap, scenarioWithSimpleIfStatementFunctions)
+
+    assertEquals(scenarioWithSimpleIfStatementExpectedResult, result)
+  }
+
+  @Test
+  def isNestedTest(): Unit = {
+    val result = codeExecutor.executeCodeOnLevel(scenarioWithNestedIfStatementMap, scenarioWithNestedIfStatementFunctions)
+
+    assertEquals(scenarioWithNestedIfStatementExpectedResult, result)
   }
 
 }

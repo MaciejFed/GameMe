@@ -2,7 +2,7 @@ package com.mfed.scenario.helpers.functions
 
 import java.util
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 /**
   * Created by Maciej Fedorowiat 
@@ -11,8 +11,8 @@ import com.mfed.model.{ExecutionResult, GameMap, Move}
   */
 object ScenarioWithDoubleRotateFunctions {
 
-  def scenarioWithDoubleRotateFunctions: List[String] = {
-    List("go();", "rotateRight();", "rotateRight();", "go();" )
+  def scenarioWithDoubleRotateFunctions: List[Block] = {
+    List(new CodeBlock(List("go();", "rotateRight();", "rotateRight();", "go();" )))
   }
 
   def scenarioWithDoubleRotateMap: GameMap = {

@@ -8,5 +8,5 @@ import com.mfed.model.{ExecutionResult, GameMap, GameMapState}
   * mfedorowiat@gmail.com
   */
 trait RoadService {
-  def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => GameMapState]): ExecutionResult
+  def runMovingCodeOnLevel(gameMap: GameMap, moveFunctionList: List[(GameMapState) => List[GameMapState]]): ExecutionResult
 }

@@ -1,6 +1,6 @@
 package com.mfed.services.impl
 
-import com.mfed.model.GameMapState
+import com.mfed.model.{Block, CodeBlock, GameMapState, IfBlock}
 import com.mfed.services.FunctionService
 import org.springframework.stereotype.Component
 
@@ -17,36 +17,60 @@ class FunctionServiceImpl extends FunctionService{
   val multiRotatePattern: Regex = "(rotateRight\\(.+\\);)".r
   val variableDefinitionPattern: Regex = "(def \\D.+\\s*=\\s*\\d+;)".r
 
-  override def produceFunctionsFromCode(code: List[String]): List[(GameMapState) => GameMapState] = {
+  override def produceFunctionsFromCodeBlocks(blocks: List[Block]): List[(GameMapState) => List[GameMapState]] = {
+
+      blocks.flatMap { _ match {
+        case CodeBlock(f) => produceFunctionsFromCode(f)
+        case IfBlock(condition, onSuccessBlocks, onFailureBlocks) => handleIfCase(condition, onSuccessBlocks, onFailureBlocks)
+      }
+    }
+  }
+
+  def handleIfCase(condition: GameMapState => Boolean, onSuccessBlocks: List[Block], onFailureBlocks: List[Block]): List[(GameMapState) => List[GameMapState]] = {
+    List((gameMapState: GameMapState) => {
+      val executionBlocks = if(condition(gameMapState))  onSuccessBlocks else onFailureBlocks
+
+      produceFunctionsFromCodeBlocks(executionBlocks).scan((gameMapState: GameMapState) => List(gameMapState))((a, b) => {
+          (gameMapState: GameMapState) => {
+            a(gameMapState).flatMap(r => b(r))
+          }
+        }).flatMap(s => s(gameMapState))
+    })
+  }
+
+  def produceFunctionsFromCode(code: List[String]): List[(GameMapState) => List[GameMapState]] = {
     code.map {
       case multiGoPattern(c) => composeWithValueName(functionGo,  readValueName(c))
       case multiRotatePattern(c) => composeWithValueName(rotateRight,  readValueName(c))
-      case variableDefinitionPattern(c) => saveVariable(c)
-      case "go();" => functionGo
-      case "rotateRight();" => rotateRight
-      case _ => (gameMapState: GameMapState) => gameMapState
+      case variableDefinitionPattern(c) => asListResult(saveVariable(c))
+      case  "go();" => asListResult(functionGo)
+      case "rotateRight();" => asListResult(rotateRight)
+      case _ => (gameMapState: GameMapState) => List(gameMapState)
+    }
+  }
+
+  def asListResult(function: GameMapState => GameMapState) = {
+    (gameMapState: GameMapState) => {
+      List(function(gameMapState))
     }
   }
 
   def readValueName(function: String): String = function.substring(function.indexOf('(') + 1, function.lastIndexOf(')'))
 
-  def composeWithValueName(function: GameMapState => GameMapState, valueName: String): GameMapState => GameMapState = {
-      if(valueName.matches("\\d+$"))
-      composeFunction(function, Integer.parseInt(valueName))
-    else
-      composeFunction(function, valueName)
-  }
-
-  def composeFunction(function: GameMapState => GameMapState, valueName: String): GameMapState => GameMapState = {
+  def composeWithValueName(function: GameMapState => GameMapState, valueName: String): GameMapState => List[GameMapState] = {
     (gameMapState: GameMapState) => {
-        composeFunction(function, gameMapState.variables(valueName))(gameMapState)
-    }
+      if(valueName.matches("\\d+$"))
+        composeFunction(function, gameMapState, Integer.parseInt(valueName))
+      else
+        composeFunction(function, gameMapState, gameMapState.variables(valueName))
+      }
   }
 
-  def composeFunction(function: GameMapState => GameMapState, times: Int): GameMapState => GameMapState  = {
-      (1 to times)
-      .map(_ => function)
-      .foldLeft((gameMapState: GameMapState) => gameMapState)((a, b) => b.compose(a))
+  def composeFunction(function: GameMapState => GameMapState, gameMapState: GameMapState, times: Int)  = {
+    List((1 to times)
+        .map(_ => function)
+        .foldLeft((gameMapState: GameMapState) => gameMapState)((a, b) => b.compose(a)))
+        .map(a => a apply gameMapState)
   }
 
   def saveVariable(definition: String) = {

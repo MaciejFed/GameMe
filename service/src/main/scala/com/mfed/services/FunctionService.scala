@@ -1,6 +1,6 @@
 package com.mfed.services
 
-import com.mfed.model.GameMapState
+import com.mfed.model.{Block, GameMapState}
 
 /**
   * Created by Maciej Fedorowiat 
@@ -8,5 +8,5 @@ import com.mfed.model.GameMapState
   * mfedorowiat@gmail.com
   */
 trait FunctionService {
-  def produceFunctionsFromCode(code: List[String]): List[(GameMapState => GameMapState)]
+  def produceFunctionsFromCodeBlocks(code: List[Block]): List[(GameMapState) => List[GameMapState]]
 }

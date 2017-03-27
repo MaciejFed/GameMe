@@ -1,6 +1,6 @@
 package com.mfed.services
 
-import com.mfed.model.{ExecutionResult, GameMap}
+import com.mfed.model.{Block, ExecutionResult, GameMap}
 
 /**
   * Created by Maciej Fedorowiat 
@@ -8,5 +8,5 @@ import com.mfed.model.{ExecutionResult, GameMap}
   * mfedorowiat@gmail.com
   */
 trait CodeExecutor {
-  def executeCodeOnLevel(gameMap: GameMap, code: List[String]): ExecutionResult
+  def executeCodeOnLevel(gameMap: GameMap, code: List[Block]): ExecutionResult
 }
