@@ -1,4 +1,4 @@
-package com.mfed.services
+package com.mfed.services.functions
 
 import com.mfed.model.{Block, GameMapState}
 

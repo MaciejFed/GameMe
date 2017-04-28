@@ -11,8 +11,8 @@ import com.mfed.model._
   */
 object ScenarioWithSingleRotate {
 
-  def scenarioWithSingleRotateFunctions: List[Block] = {
-    List(new CodeBlock(List("go();", "rotateRight();", "go();" )))
+  def scenarioWithSingleRotateFunctions: String = {
+    "go(); rotateRight(); go();"
   }
 
   def scenarioWithSingleRotateMap: GameMap = {

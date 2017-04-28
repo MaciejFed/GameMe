@@ -10,8 +10,8 @@ import scala.collection.JavaConverters._
   */
 object ScenarioWithSimpleObstacle {
 
-  def scenarioSimpleObstacleFunctions: List[Block] = {
-    List(new CodeBlock(List("go();", "go();", "go();")))
+  def scenarioSimpleObstacleFunctions: String = {
+    "go(); go(); go();"
   }
 
   def scenarioSimpleObstacleMap: GameMap = {

@@ -11,8 +11,8 @@ import com.mfed.model._
   */
 object ScenarioWithSimpleMoveAhead {
 
-  def scenarioSimpleMoveAheadFunctions: List[Block] = {
-    List(new CodeBlock(List("go();")))
+  def scenarioSimpleMoveAheadFunctions: String = {
+    "go();"
   }
 
   def scenarioSimpleMoveAheadMap: GameMap = {

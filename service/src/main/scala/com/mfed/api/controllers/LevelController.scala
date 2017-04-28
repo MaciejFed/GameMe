@@ -2,7 +2,7 @@ package com.mfed.api.controllers
 
 import com.mfed.api.converters.GameMapSerializatiors._
 import com.mfed.dto._
-import com.mfed.services.{CodeExecutor, FunctionService, LevelService}
+import com.mfed.services.{CodeExecutorService, LevelService}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation._
@@ -16,13 +16,10 @@ import org.springframework.web.bind.annotation._
 class LevelController {
 
   @Autowired
-  private val codeExecutor: CodeExecutor = null
+  private val codeExecutorService: CodeExecutorService = null
 
   @Autowired
   private val levelService: LevelService = null
-
-  @Autowired
-  private val functionService: FunctionService = null
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.GET))
   def getLevel(@PathVariable levelNumber: Int): ResponseEntity[LevelDTO] = {
@@ -30,20 +27,11 @@ class LevelController {
   }
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.POST))
-  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody codeRequestDTO: CodeRequestDTO): ResponseEntity[RoadResponseDTO] = {
-    //val gameMap = levelService.getLevel(levelNumber).gameMap
-    //val executionResult = codeExecutor.executeCodeOnLevel(gameMap, codeRequestDTO.code.toList)
+  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody code: String): ResponseEntity[RoadResponseDTO] = {
+    val gameMap = levelService.getLevel(levelNumber).gameMap
+    val executionResult = codeExecutorService.executeCodeOnLevel(gameMap, code)
 
-    new ResponseEntity[RoadResponseDTO](HttpStatus.OK)
-  }
-
-  @RequestMapping(value = Array("/test"), method = Array(RequestMethod.POST))
-  def testRecursiveDto(@RequestBody blockDTO: BlockDTO): ResponseEntity[String] ={
-//    val blocks: List[Block] = List()
-//    val funcf: List[GameMapState => GameMapState] = blocks.flatMap(b => b(functionService))
-//    blockDTO.toString
-
-    new ResponseEntity[String](HttpStatus.OK)
+    new ResponseEntity[RoadResponseDTO](executionResult, HttpStatus.OK)
   }
 
   @ExceptionHandler(value = Array(classOf[Exception]))

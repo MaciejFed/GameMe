@@ -10,8 +10,8 @@ import com.mfed.model._
   * mfedorowiat@gmail.com
   */
 object ScenarioWithIntVariable {
-  def scenarioWithIntVariableFunctions: List[Block] = {
-    List(new CodeBlock(List("go();", "def x = 3;", "go(x);" )))
+  def scenarioWithIntVariableFunctions: String = {
+    "go(); def x = 3; go(x);"
   }
 
   def scenarioWithIntVariableMap: GameMap = {

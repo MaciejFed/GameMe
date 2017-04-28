@@ -10,8 +10,8 @@ import com.mfed.model._
   * mfedorowiat@gmail.com
   */
 object ScenarioWithFunctionParameters {
-  def scenarioWithFunctionParametersFunctions: List[Block] = {
-    List(new CodeBlock(List("go(3);", "rotateRight(2);", "go(2);")))
+  def scenarioWithFunctionParametersFunctions: String = {
+    "go(3); rotateRight(2); go(2);"
   }
 
   def scenarioWithFunctionParametersMap: GameMap = {

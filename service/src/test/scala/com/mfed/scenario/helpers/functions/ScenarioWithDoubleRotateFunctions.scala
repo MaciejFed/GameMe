@@ -11,8 +11,8 @@ import com.mfed.model._
   */
 object ScenarioWithDoubleRotateFunctions {
 
-  def scenarioWithDoubleRotateFunctions: List[Block] = {
-    List(new CodeBlock(List("go();", "rotateRight();", "rotateRight();", "go();" )))
+  def scenarioWithDoubleRotateFunctions: String = {
+    "go(); rotateRight(); rotateRight(); go();"
   }
 
   def scenarioWithDoubleRotateMap: GameMap = {
