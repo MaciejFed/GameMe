@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Level from 'scenes/Level/Level';
+import Level from './scenes/Level/Level';
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import store from './store'

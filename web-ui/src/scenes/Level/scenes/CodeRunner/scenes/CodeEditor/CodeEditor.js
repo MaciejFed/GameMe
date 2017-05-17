@@ -23,17 +23,17 @@ export default class CodeEditor extends React.Component{
 
     render(){
         return(
-            <div id="code-container" className={styles.codeRunner} onClick={this.focusOnInput.bind(this)}>
+            <div id="code-container" className="codeRunner" onClick={this.focusOnInput.bind(this)}>
                 {
                     !this.props.isAnimating ? null :
                     <EnterTextAnimation introductionText={this.props.introductionText} endCallback={this.endAnimationCallback.bind(this)}/>
                 }
-                <div style={{visibility: this.props.textVisibility}} className={styles.codeTextContainer}>
+                <div style={{visibility: this.props.textVisibility}} className="codeTextContainer">
                     <PointerSpan text={this.codeEditorService.formatCode(this.props.code)}/>
                 </div>
                 <input ref={(input) => this.inputArea = input} onChange={(event) => this.changeText(event.target.value)} style={{opacity: 0}}/>
-                <div className={styles.compileButtonContainer}>
-                    <button className={styles.compileButton} onClick={this.runCode.bind(this)}>Compile</button>
+                <div className="compileButtonContainer">
+                    <button className="compileButton" onClick={this.runCode.bind(this)}>Compile</button>
                 </div>
             </div>
         )

@@ -15,7 +15,7 @@ export default class Level extends React.Component{
 
     render(){
         return(
-            <div className={styles.level}>
+            <div className="level">
                 <CodeRunner />
                 <Board successCallback={this.nextLevel.bind(this)} />
             </div>

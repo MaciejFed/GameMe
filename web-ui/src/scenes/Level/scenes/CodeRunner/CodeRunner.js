@@ -17,7 +17,7 @@ export default class CodeRunner extends React.Component{
 
     render(){
         return (
-            <div className={styles.codeRunnerWrapper}>
+            <div className="codeRunnerWrapper">
                 <CodeEditor />
                 <FunctionHelper functions={this.props.functions} onFunctionClicked={this.appendCode.bind(this)} levelNumber={this.props.levelNumber}/>
             </div>

@@ -18,7 +18,7 @@ export default class PointerSpan extends React.Component{
     render(){
         return(
             <span key={this.props.text}>
-                {this.props.text}<span className={style.pointerSpan}>{this.state.pointer}</span>
+                {this.props.text}<span className='pointerSpan'>{this.state.pointer}</span>
             </span>
         )
     }

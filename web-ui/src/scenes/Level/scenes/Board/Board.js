@@ -40,12 +40,12 @@ export default class Board extends React.Component {
     render() {
         if (!this.props.isLevelLoading)
             return (
-                <div key={this.props.levelNumber} id="board" className={stageStyles.board} >
+                <div key={this.props.levelNumber} id="board" className="board" >
                         <canvas id="gameStage"
                                 width={RECTANGLE_SIZE * this.props.gameMap.width}
                                 height={RECTANGLE_SIZE * this.props.gameMap.height}>
                         </canvas>
-                        <button onClick={() => this.animateBall()} className={stageStyles.animateButton}>Animate</button>
+                        <button onClick={() => this.animateBall()} className="animateButton">Animate</button>
                 </div>
 
             );
