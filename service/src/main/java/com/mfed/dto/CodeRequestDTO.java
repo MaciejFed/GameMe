@@ -8,20 +8,20 @@ import java.util.List;
  * mfedorowiat@gmail.com
  */
 public class CodeRequestDTO {
-    public List<String> code;
+    public String code;
 
     public CodeRequestDTO() {
     }
 
-    public CodeRequestDTO(List<String> code) {
+    public CodeRequestDTO(String code) {
         this.code = code;
     }
 
-    public void setCode(List<String> code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public List<String> getCode() {
+    public String getCode() {
         return code;
     }
 }

@@ -1,15 +1,25 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Level from 'scenes/Level/Level';
+import {createBrowserHistory} from "history";
+import { syncHistoryWithStore } from 'react-router-redux';
+import Level from './scenes/Level/Level';
 import { Provider } from 'react-redux'
-import { Router, Route, browserHistory } from 'react-router'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import store from './store'
 
-let reduxWrapper = function(component){
+
+syncHistoryWithStore(createBrowserHistory(), store)
+
+    let wrapComponent = function(component){
     return(<Provider store={store}>{component}</Provider>)
 };
 
+let levelPath = (
+    <BrowserRouter history={ history } >
+        <Route path="/*" component={() => wrapComponent(<Level/>)}/>
+    </BrowserRouter>
+);
 
-render(<Provider store={store}><Level/></Provider>,
+render(levelPath,
     document.getElementById("root"));
 

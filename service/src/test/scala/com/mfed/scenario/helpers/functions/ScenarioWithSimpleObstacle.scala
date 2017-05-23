@@ -1,6 +1,6 @@
 package com.mfed.scenario.helpers.functions
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 import scala.collection.JavaConverters._
 /**
@@ -10,8 +10,8 @@ import scala.collection.JavaConverters._
   */
 object ScenarioWithSimpleObstacle {
 
-  def scenarioSimpleObstacleFunctions: List[String] = {
-    List("go();", "go();", "go();")
+  def scenarioSimpleObstacleFunctions: String = {
+    "go(); go(); go();"
   }
 
   def scenarioSimpleObstacleMap: GameMap = {

@@ -2,7 +2,7 @@ package com.mfed.scenario.helpers.functions
 
 import java.util
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 /**
   * Created by Maciej Fedorowiat 
@@ -11,8 +11,8 @@ import com.mfed.model.{ExecutionResult, GameMap, Move}
   */
 object ScenarioWithSingleRotate {
 
-  def scenarioWithSingleRotateFunctions: List[String] = {
-    List("go();", "rotateRight();", "go();" )
+  def scenarioWithSingleRotateFunctions: String = {
+    "go(); rotateRight(); go();"
   }
 
   def scenarioWithSingleRotateMap: GameMap = {

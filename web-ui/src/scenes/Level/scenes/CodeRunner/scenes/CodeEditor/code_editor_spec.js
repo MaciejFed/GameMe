@@ -1,6 +1,6 @@
 import React from 'react';
 import expect from 'expect';
-import * as actions from './codeEditorActions';
+import * as actions from '../../codeEditorActions';
 import CodeEditor from './CodeEditor'
 import store  from './../../../../../../store'
 import { Provider } from 'react-redux'

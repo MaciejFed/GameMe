@@ -2,7 +2,7 @@ package com.mfed.scenario.helpers.functions
 
 import java.util
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 /**
   * Created by Maciej Fedorowiat 
@@ -11,8 +11,8 @@ import com.mfed.model.{ExecutionResult, GameMap, Move}
   */
 object ScenarioWithSimpleMoveAhead {
 
-  def scenarioSimpleMoveAheadFunctions: List[String] = {
-    List("go();")
+  def scenarioSimpleMoveAheadFunctions: String = {
+    "go();"
   }
 
   def scenarioSimpleMoveAheadMap: GameMap = {

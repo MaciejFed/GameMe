@@ -1,5 +1,6 @@
 .codeRunner {
     flex: 5;
+    width: 100px;
     display: flex;
     flex-direction: column;
     background-color: black;

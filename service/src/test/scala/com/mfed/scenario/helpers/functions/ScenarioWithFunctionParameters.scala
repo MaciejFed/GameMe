@@ -2,7 +2,7 @@ package com.mfed.scenario.helpers.functions
 
 import java.util
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 /**
   * Created by Maciej Fedorowiat 
@@ -10,8 +10,8 @@ import com.mfed.model.{ExecutionResult, GameMap, Move}
   * mfedorowiat@gmail.com
   */
 object ScenarioWithFunctionParameters {
-  def scenarioWithFunctionParametersFunctions: List[String] = {
-    List("go(3);", "rotateRight(2);", "go(2);" )
+  def scenarioWithFunctionParametersFunctions: String = {
+    "go(3); rotateRight(2); go(2);"
   }
 
   def scenarioWithFunctionParametersMap: GameMap = {

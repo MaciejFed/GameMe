@@ -2,7 +2,7 @@ package com.mfed.scenario.helpers.variables
 
 import java.util
 
-import com.mfed.model.{ExecutionResult, GameMap, Move}
+import com.mfed.model._
 
 /**
   * Created by Maciej Fedorowiat 
@@ -10,8 +10,8 @@ import com.mfed.model.{ExecutionResult, GameMap, Move}
   * mfedorowiat@gmail.com
   */
 object ScenarioWithIntVariable {
-  def scenarioWithIntVariableFunctions: List[String] = {
-    List("go();", "def x = 3;", "go(x);" )
+  def scenarioWithIntVariableFunctions: String = {
+    "go();def x = 3; go(x);"
   }
 
   def scenarioWithIntVariableMap: GameMap = {
