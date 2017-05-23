@@ -25,10 +25,6 @@ class RoadRunner{
       .scan(identify)((a, b) => b.compose((gameMapState: GameMapState) => a(gameMapState).last))
       .flatMap(f => f(gameMapInitialState))
 
-    gameStates.foreach(g => print(g))
-    println()
-    println()
-
     val moves = gameStates
         .zip(gameStates.tail)
         .map(s => movesProducer.produceMovesFromGameStates(s._1, s._2))

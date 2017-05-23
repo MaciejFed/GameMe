@@ -2,6 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
     prod: {
+        activeByDefault: true,
         vars: {
             API_URL: "'http://35.187.40.205:8080'"
         }
@@ -17,7 +18,6 @@ module.exports = {
         }
     },
     dev_mock: {
-        activeByDefault: true,
         vars: {
             API_URL: "'http://localhost:3000'"
         }

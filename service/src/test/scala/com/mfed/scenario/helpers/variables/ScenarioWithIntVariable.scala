@@ -11,7 +11,7 @@ import com.mfed.model._
   */
 object ScenarioWithIntVariable {
   def scenarioWithIntVariableFunctions: String = {
-    "go(); def x = 3; go(x);"
+    "go();def x = 3; go(x);"
   }
 
   def scenarioWithIntVariableMap: GameMap = {

@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration
   */
 @RunWith(classOf[SpringJUnit4ClassRunner])
 @SpringBootTest
-@WebAppConfiguration class  GameMeApplicationTests {
+@WebAppConfiguration class GameMeApplicationTests {
 
   @Autowired
   val applicationContext: ApplicationContext = null
