@@ -61,7 +61,7 @@ class CodeParserImpl extends CodeParser{
 
   private def readFunctions(code: String): List[CodeBlock] ={
     List(CodeBlock(code.split("(?<=;)")
-                       .map(f => if (!f.contains("def")) f.replaceAll("\\s","") else f.replaceFirst("\\s",""))
+                       .map(f => if (!f.contains("def")) f.replaceAll("\\s","") else f.substring(f.indexOf("def")))
                        .filter(f => f.length > 2).toList))
   }
 

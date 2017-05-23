@@ -27,9 +27,9 @@ class LevelController {
   }
 
   @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.POST))
-  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody code: String): ResponseEntity[RoadResponseDTO] = {
+  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody codeRequestDTO: CodeRequestDTO): ResponseEntity[RoadResponseDTO] = {
     val gameMap = levelService.getLevel(levelNumber).gameMap
-    val executionResult = codeExecutorService.executeCodeOnLevel(gameMap, code)
+    val executionResult = codeExecutorService.executeCodeOnLevel(gameMap, codeRequestDTO.code)
 
     new ResponseEntity[RoadResponseDTO](executionResult, HttpStatus.OK)
   }

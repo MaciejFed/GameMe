@@ -29,6 +29,6 @@ class CodeExecutorService{
     val blocks = codeParser.parseCodeToCodeBlocks(code)
     val functions = functionService.produceFunctionsFromCodeBlocks(blocks)
 
-      roadRunner.runMovingCodeOnLevel(gameMap, functions)
+    roadRunner.runMovingCodeOnLevel(gameMap, functions)
   }
 }
