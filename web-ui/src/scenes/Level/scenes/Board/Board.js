@@ -3,6 +3,7 @@ const STAGE_NAME = "gameStage";
 
 import React from 'react';
 import stageStyles from './board.css'
+import buttonStyles from './animatebutton.css'
 import GameObject from './game_object';
 import GameMap from './game_map'
 import {connect} from "react-redux";
@@ -18,7 +19,7 @@ let arrow = require("./arrow-right-black.png");
         isLevelLoading: store.levelReducer.isLevelLoading,
         gameMap: new GameMap(store.levelReducer.level.gameMap),
         isExecutingCode: store.codeEditorReducer.codeEditor.isExecutingCode,
-        executionCode: store.codeEditorReducer.codeEditor.executionCode,
+        code: store.codeEditorReducer.codeEditor.code,
         roadExecution: store.boardReducer.board.roadExecution,
         isAnimating: store.boardReducer.isAnimating
     })
@@ -33,8 +34,8 @@ export default class Board extends React.Component {
 
     componentDidUpdate() {
         this.refreshStage();
-        if(this.props.isExecutingCode && !this.props.isAnimating)
-            LOAD_ROAD(this.props.levelNumber, {code: this.props.executionCode.split(";").map(s =>( s + ";").replace(/^\s\s*/, '').replace(/\s\s*$/, ''))})(this.props.dispatch);
+        if(this.props.isAnimating)
+            this.animateBall()
     }
 
     render() {
@@ -45,12 +46,12 @@ export default class Board extends React.Component {
                                 width={RECTANGLE_SIZE * this.props.gameMap.width}
                                 height={RECTANGLE_SIZE * this.props.gameMap.height}>
                         </canvas>
-                        <button onClick={() => this.animateBall()} className="animateButton">Animate</button>
+                        <button onClick={this.loadRoad.bind(this)} className="animateButton">Animate</button>
                 </div>
 
             );
         else
-            return (<div className={stageStyles.board}>Loading...</div>)
+            return (<div className="board">Loading...</div>)
     }
 
     refreshStage() {
@@ -110,6 +111,10 @@ export default class Board extends React.Component {
             }
         }
         this.stage.update();
+    }
+
+    loadRoad(){
+        LOAD_ROAD(this.props.levelNumber, {code: this.props.code})(this.props.dispatch);
     }
 
     animateBall() {

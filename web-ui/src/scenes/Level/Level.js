@@ -5,10 +5,11 @@ import styles from './level.css'
 import { connect } from 'react-redux'
 import { LOAD_LEVEL } from './levelActions'
 
-@connect((store) => {
+
+@connect((stateProps) => {
     return {
-        level: store.levelReducer.level,
-        isLevelLoading: store.levelReducer.isLevelLoading
+        level: stateProps.levelReducer.level,
+        isLevelLoading: stateProps.levelReducer.isLevelLoading
     }
 })
 export default class Level extends React.Component{
@@ -23,10 +24,11 @@ export default class Level extends React.Component{
     }
 
     componentWillMount(){
-        this.nextLevel();
+        LOAD_LEVEL(location.pathname.substr(1))(this.props.dispatch.bind(this));
     }
 
     nextLevel(){
-        LOAD_LEVEL(this.props.level.number + 1)(this.props.dispatch.bind(this));
+        history.pushState({urlPath: this.props.level.number + 1 },"", this.props.level.number + 1 );
+        window.location.reload();
     }
 }
