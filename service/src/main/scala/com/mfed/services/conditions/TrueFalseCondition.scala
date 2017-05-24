@@ -8,7 +8,7 @@ import scala.util.matching.Regex
   * mfedorowiat@gmail.com
   */
 object TrueFalseCondition extends Condition{
-  val name: Regex = "(false\\(\\)|true\\(\\))".r
+  val name: Regex = "((?=.*?true|.*?false|.*?True|.*?False)^.*$)".r
 
   override def produce(condition: String) = {
     if(condition.contains("true")) _ => true else  _ => false
