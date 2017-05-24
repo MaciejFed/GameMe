@@ -10,11 +10,18 @@ import org.springframework.stereotype.Component
   */
 @Component
 class ConditionProducer {
+  val falseOperator = "(?=.*?not|!)^.*$"
+
   def produceCondition(condition: String): GameMapState => Boolean = {
-    condition match {
-      case NotFacingWallCondition.name => NotFacingWallCondition.produce()
-      case NotInEscapePointCondition.name => NotInEscapePointCondition.produce()
+    val logicOperator = !condition.matches(falseOperator)
+
+    val conditionProduct = condition match {
+      case FacingWallCondition.name(c) => FacingWallCondition.produce()
+      case InEscapePointCondition.name(c) => InEscapePointCondition.produce()
       case TrueFalseCondition.name(c) => TrueFalseCondition.produce(c)
+      case _ => throw new RuntimeException("Unknown exception: " + condition)
     }
+
+    (gameMapState: GameMapState) => logicOperator == conditionProduct(gameMapState)
   }
 }

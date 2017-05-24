@@ -22,8 +22,8 @@ class RoadRunner{
     val identify: GameMapState => List[GameMapState]= g => List(g)
 
     val gameStates = moveFunctionList
-      .scan(identify)((a, b) => b.compose((gameMapState: GameMapState) => a(gameMapState).last))
-      .flatMap(f => f(gameMapInitialState))
+        .scan(identify)((a, b) => b.compose((gameMapState: GameMapState) => a(gameMapState).last))
+        .flatMap(f => f(gameMapInitialState))
 
     val moves = gameStates
         .zip(gameStates.tail)

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class CodeParserImpl extends CodeParser{
 
-  private val whileRegex = "(while\\(.*\\(\\)\\)\\s*\\{.+\\})".r
-  private val ifRegex = "(if\\(.*\\(\\)\\)\\s*\\{.*\\})".r
-  private val ifElseRegex = "(if\\(.*\\(\\)\\)\\s*\\{.+\\}\\s*else\\s*\\{.+\\}\\s*)".r
+  private val ifElseRegex = "(if\\(.*\\)\\s*\\{.+\\}\\s*else\\s*\\{.+\\}\\s*)".r
   private val conditionRegex = "\\(\\w*\\(\\)\\)".r
 
   override def parseCodeToCodeBlocks(codeString: String): List[Block] = {

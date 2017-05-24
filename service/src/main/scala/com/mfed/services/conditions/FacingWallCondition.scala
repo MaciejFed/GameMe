@@ -7,13 +7,15 @@ import com.mfed.model.GameMapState
   * on 07/04/2017 13:46.
   * mfedorowiat@gmail.com
   */
-object NotFacingWallCondition extends Condition{
-  val name = "notFacingWall()"
+object FacingWallCondition extends Condition{
+  val name = "((?=.*?FacingWall)^.*$)".r
 
   override def produce() = {
     (gameMapState: GameMapState) => {
+      val currentPoint = gameMapState.robotState.point
       val nextPoint = gameMapState.produceNextPointByCurrentRotation()
-      gameMapState.gameMap.inValidPlace(nextPoint)
+
+      currentPoint.equals(nextPoint)
     }
   }
 }

@@ -6,12 +6,12 @@ import com.mfed.model.GameMapState
   * on 07/04/2017 15:10.
   * mfedorowiat@gmail.com
   */
-object NotInEscapePointCondition extends Condition{
-  val name = "notInEscapePoint()"
+object InEscapePointCondition extends Condition{
+  val name = "((?=.*?InEscapePoint)^.*$)".r
 
   override def produce(): (GameMapState) => Boolean = {
     (gameMapState: GameMapState) => {
-      !gameMapState.gameMap.endPoint.equals(gameMapState.robotState.point)
+      gameMapState.gameMap.endPoint.equals(gameMapState.robotState.point)
     }
   }
 }
