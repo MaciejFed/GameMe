@@ -4,7 +4,7 @@ module.exports = {
     prod: {
         activeByDefault: true,
         vars: {
-            API_URL: "'http://35.187.40.205:8080'"
+            API_URL: "'http://api.fedorowiat.com'"
         }
     },
     prod_mock: {

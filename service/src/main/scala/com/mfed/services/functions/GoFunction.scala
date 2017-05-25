@@ -1,7 +1,7 @@
 package com.mfed.services.functions
 
 import com.mfed.model.GameMapState
-
+import scala.collection.JavaConversions._
 /**
   * Created by Maciej Fedorowiat 
   * on 07/04/2017 13:33.
@@ -13,10 +13,12 @@ object GoFunction extends Function{
     (gameMapState: GameMapState) => {
       val roboFuturePoint = gameMapState.produceNextPointByCurrentRotation()
 
-      if(!gameMapState.gameMap.obstacles.contains(roboFuturePoint))
-        gameMapState.copy(robotState = gameMapState.robotState.copy(point = roboFuturePoint))
-      else
-        gameMapState
+      val diamonds = gameMapState.gameMap.diamonds.toList.filter(d => !d.equals(roboFuturePoint))
+
+      gameMapState.copy(
+        robotState = gameMapState.robotState.copy(point = roboFuturePoint),
+        gameMap = gameMapState.gameMap.copy(diamonds = diamonds)
+      )
     }
   }
 }

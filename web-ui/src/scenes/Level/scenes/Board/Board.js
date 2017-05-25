@@ -12,6 +12,7 @@ const OPEN_FIELD_COLOR = "#999";
 const CLOSED_FIELD_COLOR = "#222";
 let robot = require("./robot.png");
 let arrow = require("./arrow-right-black.png");
+let diamond = require("./diamond.png");
 
 @connect((store) => {
     return({
@@ -57,6 +58,7 @@ export default class Board extends React.Component {
     refreshStage() {
         let robotBitmap = new createjs.Bitmap(robot);
         let arrowBitmap = new createjs.Bitmap(arrow);
+        let diamondBitmap = new createjs.Bitmap(diamond);
         this.robot = new GameObject(robotBitmap, arrowBitmap, RECTANGLE_SIZE);
 
         robotBitmap.image.onload = function() {
@@ -69,18 +71,22 @@ export default class Board extends React.Component {
             this.initArrow(arrowBitmap);
             this.stage.update();
         }.bind(this);
+
+        diamondBitmap.image.onload = function () {
+            robotBitmap
+        }
     }
 
-    initStage(robot){
+    initStage(robotBitmap){
         this.stage = new createjs.Stage(STAGE_NAME);
         createjs.Ticker.setFPS(60);
         createjs.Ticker.addEventListener("tick", this.stage);
         let scale = RECTANGLE_SIZE * 0.8 / robot.getBounds().width;
-        robot.x = RECTANGLE_SIZE * 0.1;
-        robot.y = RECTANGLE_SIZE * 0.1;
-        robot.scaleX = scale;
-        robot.scaleY = scale;
-        this.stage.addChild(robot);
+        robotBitmap.x = RECTANGLE_SIZE * 0.1;
+        robotBitmap.y = RECTANGLE_SIZE * 0.1;
+        robotBitmap.scaleX = scale;
+        robotBitmap.scaleY = scale;
+        this.stage.addChild(robotBitmap);
     }
 
     initArrow(arrow){

@@ -19,7 +19,7 @@ object GameMapSerializatiors {
 
 
   implicit def serializeGameMap(gameMap: GameMap): GameMapDTO = {
-    val list = gameMap.obstacles.toList.map(o => toObstacleDTO(o)).asJava
+    val list = gameMap.obstacles.toList.map(o => toPair(o)).asJava
 
     new GameMapDTO(gameMap.height, gameMap.width, list)
   }
@@ -29,15 +29,15 @@ object GameMapSerializatiors {
   }
 
   implicit def serializeMove(move: Move): MoveDTO = {
-    new MoveDTO(move.x, move.y, move.rotation)
+    new MoveDTO(move.x, move.y, move.rotation, move.diamonds.map(d => toPair(d)))
   }
 
-  def toObstacleDTO(obstacle: (Int, Int)): ObstacleDTO = {
-    new ObstacleDTO(obstacle._1, obstacle._2)
+  def toPair(obstacle: (Int, Int)): Pair = {
+    new Pair(obstacle._1, obstacle._2)
   }
 
-  def toObstacle(obstacleDTO: ObstacleDTO): Obstacle = {
-    Obstacle(obstacleDTO.x, obstacleDTO.y)
+  def toPair(pair: Pair): Obstacle = {
+    Obstacle(pair.x, pair.y)
   }
 
   implicit def toRoadResponseDto(executionResult: ExecutionResult) = {

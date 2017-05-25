@@ -12,9 +12,9 @@ public class GameMapDTO {
 
     public int height;
     public int width;
-    public List<ObstacleDTO> obstacles;
+    public List<Pair> obstacles;
 
-    public GameMapDTO(int height, int width, List<ObstacleDTO> obstacles) {
+    public GameMapDTO(int height, int width, List<Pair> obstacles) {
         this.height = height;
         this.width = width;
         this.obstacles = obstacles;
