@@ -9,7 +9,7 @@ const EMPTY_GAME_MAP = {
 
 const EMPTY_LEVEL = {
     level: {
-        number: 0,
+        name: '',
         introductionText: [''],
         startCode: '',
         gameMap: EMPTY_GAME_MAP,

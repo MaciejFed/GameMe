@@ -11,7 +11,7 @@ import scala.collection.JavaConversions._
   * mfedorowiat@gmail.com
   */
 @Document
-case class Level(@Id id: String, number: Integer, gameMap: GameMap, introductionText: java.util.List[String], startCode: String, functions: java.util.List[String])
+case class Level(@Id id: String, name: String, gameMap: GameMap, introductionText: java.util.List[String], startCode: String, functions: java.util.List[String])
 
 
 case class GameMap(width: Integer, height: Integer, obstacles: java.util.List[(Int, Int)],
