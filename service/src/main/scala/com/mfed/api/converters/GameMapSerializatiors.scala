@@ -19,9 +19,10 @@ object GameMapSerializatiors {
 
 
   implicit def serializeGameMap(gameMap: GameMap): GameMapDTO = {
-    val list = gameMap.obstacles.toList.map(o => toPair(o)).asJava
+    val obstacles = gameMap.obstacles.toList.map(o => toPair(o)).asJava
+    val diamonds = gameMap.diamonds.toList.map(o => toPair(o)).asJava
 
-    new GameMapDTO(gameMap.height, gameMap.width, list)
+    new GameMapDTO(gameMap.height, gameMap.width, obstacles, diamonds)
   }
 
   implicit def serializeMoveList(list: List[Move]): java.util.List[MoveDTO] = {

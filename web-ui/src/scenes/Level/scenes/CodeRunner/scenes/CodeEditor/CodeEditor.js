@@ -2,7 +2,7 @@ import React from 'react';
 import PointerSpan from './components/PointerSpan/PointerSpan';
 import EnterTextAnimation from './components/EnterTextAnimation/EnterTextAnimation'
 import styles from './codeeditor.css';
-import { END_ANIMATION, CODE_EXECUTION_STARTED } from '../../codeEditorActions';
+import { END_INTRODUCTION } from '../../codeEditorActions';
 import CodeEditorService from './../../codeEditorService';
 import {connect} from "react-redux";
 
@@ -33,11 +33,7 @@ export default class CodeEditor extends React.Component{
     }
 
     endAnimationCallback(){
-        END_ANIMATION(this.props.dispatch);
-    }
-
-    runCode(){
-        CODE_EXECUTION_STARTED(this.props.dispatch)
+        END_INTRODUCTION(this.props.dispatch);
     }
 
 }

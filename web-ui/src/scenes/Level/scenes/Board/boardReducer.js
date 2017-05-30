@@ -1,17 +1,21 @@
 const DEFAULT_STATE={
-    board:{
-        road:[]
-    }
+    road:[],
+    isAnimating: false,
+    isRendered: false
 };
 
 export default function (state=DEFAULT_STATE, action) {
     switch (action.type){
         case "LOAD_ROAD":
-            return state;
+            return Object.assign({}, state);
         case "LOAD_ROAD_FULFILLED":
-            return Object.assign({}, state.board,  {board: {roadExecution: action.payload}, isAnimating: true});
+            return Object.assign({}, state, { road: action.payload.road });
+        case "MAP_RENDERED":
+            return Object.assign({}, state, { isRendered: true });
+        case "CODE_EXECUTION_STARTED":
+            return Object.assign({}, state, { isAnimating: true });
         case "CODE_EXECUTION_ENDED":
-            return Object.assign({}, state.board,  {board: {isAnimating: false}});
+            return Object.assign({}, state, { isRendered: false, isAnimating: false });
     }
     return state;
 }
