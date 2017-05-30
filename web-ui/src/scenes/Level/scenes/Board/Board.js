@@ -11,7 +11,7 @@ const DELAY = 2000;
 const mapStateToProps = (state, ownProps) => {
     return {
         code: state.codeEditorReducer.codeEditor.code,
-        levelNumber: state.levelReducer.level.number,
+        levelName: state.levelReducer.level.name,
         gameMap: new GameMap(state.levelReducer.level.gameMap),
         isLevelLoading: state.levelReducer.isLevelLoading,
         isRendered: state.boardReducer.isRendered,
@@ -35,7 +35,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
             }
         },
         onAnimateClick: () => {
-            LOAD_ROAD(stateProps.levelNumber, {code: stateProps.code})(dispatchProps.dispatch);
+            LOAD_ROAD(stateProps.levelName, {code: stateProps.code})(dispatchProps.dispatch);
         },
         animateRobot: (stage) => {
             if(stateProps.isAnimating){

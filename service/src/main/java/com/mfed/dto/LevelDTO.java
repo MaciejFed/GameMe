@@ -12,14 +12,14 @@ public class LevelDTO {
     public List<String> introductionText;
     public String startCode;
     public List<String> functions;
-    public int number;
+    public String name;
 
-    public LevelDTO(GameMapDTO gameMapDTO, List<String> introductionText, String startCode, List<String> functions, int number) {
+    public LevelDTO(GameMapDTO gameMapDTO, List<String> introductionText, String startCode, List<String> functions, String name) {
         this.gameMap = gameMapDTO;
         this.introductionText = introductionText;
         this.startCode = startCode;
         this.functions = functions;
-        this.number = number;
+        this.name = name;
     }
 
     public LevelDTO() {

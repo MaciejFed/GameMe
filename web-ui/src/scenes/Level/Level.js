@@ -35,7 +35,7 @@ class Level extends React.Component{
     }
 
     nextLevel(){
-        history.pushState({urlPath: this.props.level.number + 1 },"", this.props.level.number + 1 );
+        history.pushState({urlPath: this.props.level.name + 1 },"", this.props.level.name + 1 );
         window.location.reload();
     }
 }
