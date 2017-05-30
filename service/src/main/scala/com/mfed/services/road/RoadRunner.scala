@@ -27,7 +27,7 @@ class RoadRunner{
 
     val moves = gameStates
         .zip(gameStates.tail)
-        .map(s => movesProducer.produceMovesFromGameStates(s._1, s._2))
+        .flatMap(s => movesProducer.produceMovesFromGameStates(s._1, s._2))
         .filter(m => !m.equals(Move.emptyMove))
 
     ExecutionResult(moves, gameStates.last.robotState.point.equals(gameMap.endPoint))

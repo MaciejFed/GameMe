@@ -15,6 +15,7 @@ import com.mfed.scenario.helpers.functions.ScenarioWithSimpleMoveAhead._
 import com.mfed.scenario.helpers.functions.ScenarioWithSimpleObstacle._
 import com.mfed.scenario.helpers.functions.ScenarioWithSingleRotate._
 import com.mfed.scenario.helpers.variables.ScenarioWithIntVariable._
+import com.mfed.scenario.helpers.diamonds.ScenarioWithDiamonds._
 import com.mfed.services.CodeExecutorService
 import org.junit.Assert._
 import org.junit.Test
@@ -142,6 +143,13 @@ class CompileCodeScenarioTest {
     val result = codeExecutor.executeCodeOnLevel(scenarioWithLineByLineRoadMap, scenarioWithLineByLineRoadFunctions)
 
     assertEquals(scenarioWithLineByLineRoadExpectedResult, result)
+  }
+
+  @Test
+  def diamondsTest(): Unit = {
+    val result = codeExecutor.executeCodeOnLevel(scenarioWithDiamondsMap, scenarioWithDiamondsFunctions)
+
+    assertEquals(scenarioWithDiamondsExpectedResult, result)
   }
 
 }

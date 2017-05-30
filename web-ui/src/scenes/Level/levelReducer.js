@@ -1,9 +1,10 @@
 const EMPTY_GAME_MAP = {
     gameMap: {
-    width: 0,
-    height: 0,
-    obstacles: []
-    }
+        width: 0,
+        height: 0,
+        obstacles: [],
+        diamonds: []
+    },
 };
 
 const EMPTY_LEVEL = {
@@ -14,7 +15,7 @@ const EMPTY_LEVEL = {
         gameMap: EMPTY_GAME_MAP,
         functions: []
     },
-    isLevelLoading: false
+    isLevelLoading: true
 };
 
 export default function (state=EMPTY_LEVEL, action) {

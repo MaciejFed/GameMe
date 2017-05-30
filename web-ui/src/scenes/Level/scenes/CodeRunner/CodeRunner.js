@@ -1,5 +1,5 @@
 import React from 'react';
-import RichCodeEditor from './scenes/RichCodeEditor';
+import RichCodeEditor from './scenes/RichCodeEditor/RichCodeEditor';
 import CodeEditor from './scenes/CodeEditor/CodeEditor';
 import FunctionHelper from './components/FunctionHelper/FunctionHelper';
 import { APPEND_CODE } from './codeEditorActions';
@@ -21,7 +21,7 @@ export default class CodeRunner extends React.Component{
         return (
             <div className="codeRunnerWrapper" onClick={() => this.editor.getWrappedInstance().focus()}>
                 { this.props.isAnimating ? <CodeEditor/> : <RichCodeEditor ref={instance => { this.editor = instance; }} /> }
-                <FunctionHelper functions={this.props.functions} onFunctionClicked={this.appendCode.bind(this)} levelNumber={this.props.levelNumber}/>
+                {/*<FunctionHelper functions={this.props.functions} onFunctionClicked={this.appendCode.bind(this)} levelNumber={this.props.levelNumber}/>*/}
             </div>
         )
     }

@@ -14,22 +14,20 @@ export default function (state=DEFAULT_STATE, action) {
             return({
                 codeEditor:{
                     isAnimating: true,
-                    textVisibility: 'hidden',
-                    code: ''
+                    textVisibility: 'hidden'
                 }
             });
-        case "END_ANIMATION":
+        case "END_INTRODUCTION":
             return({
                 codeEditor:{
                     isAnimating: false,
-                    textVisibility: 'visible',
-                    code: ''
+                    textVisibility: 'visible'
                 }
             });
         case "CHANGE_CODE":
             return({
                 codeEditor:{
-                    code: action.payload != undefined ? action.payload : state.codeEditor.code
+                    code: action.payload !== undefined ? action.payload : state.codeEditor.code
                 }
             });
         case "APPEND_CODE":
@@ -49,7 +47,6 @@ export default function (state=DEFAULT_STATE, action) {
             return({
                 codeEditor: Object.assign({}, state.codeEditor, {
                     isExecutingCode: false,
-                    code: ''
                 })
             });
 

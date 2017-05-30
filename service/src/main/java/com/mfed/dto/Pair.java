@@ -5,10 +5,10 @@ package com.mfed.dto;
  * on 21/08/2016 14:16.
  * mfedorowiat@gmail.com
  */
-public class ObstacleDTO {
+public class Pair {
     public int x, y;
 
-    public ObstacleDTO(int x, int y){
+    public Pair(int x, int y){
         this.x = x;
         this.y = y;
     }

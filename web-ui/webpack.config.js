@@ -1,13 +1,15 @@
-var webpack = require('webpack');
-var path = require('path');
-var webpackProfiles = require('webpack-profiles');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const webpackProfiles = require('webpack-profiles');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 var config = {
     devtool: 'inline-source-map',
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0',
+        'webpack-dev-server/client?http://0.0.0.0:8081',
         'webpack/hot/only-dev-server',
         './src'
     ],
@@ -51,6 +53,10 @@ var config = {
         new HtmlWebpackPlugin({
             template: 'index.ejs',
             inject: 'body',
+        }),
+        new UglifyJSPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
         })
     ]
 };

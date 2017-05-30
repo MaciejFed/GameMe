@@ -9,13 +9,22 @@ export function LOAD_ROAD(levelNumber, code) {
             dispatch({
                 type: "LOAD_ROAD_FULFILLED",
                 payload: response.data
+            });
+            dispatch({
+                type: "CODE_EXECUTION_STARTED"
             })
         })
     }
 
 }
 
-    export function CODE_EXECUTION_ENDED(dispatch) {
+export function MAP_RENDERED(dispatch) {
+    dispatch({
+        type: "MAP_RENDERED"
+    })
+}
+
+export function CODE_EXECUTION_ENDED(dispatch) {
     dispatch({
         type: "CODE_EXECUTION_ENDED"
     })
