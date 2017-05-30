@@ -18,12 +18,14 @@ export default class BoardMap extends React.Component{
     render(){
         return(
             <div key="const" id="board" className="board" >
-                <canvas id={STAGE_NAME}
-                        width={RECTANGLE_SIZE * this.props.gameMap.width}
-                        height={RECTANGLE_SIZE * this.props.gameMap.height}>
-                </canvas>
-                <button onClick={() => this.props.onAnimateClick()} className="animateButton">Animate</button>
-
+                <h2 className="levelTitle">{ this.props.levelNumber } Level</h2>
+                <div className="map">
+                    <canvas id={STAGE_NAME}
+                            width={RECTANGLE_SIZE * this.props.gameMap.width}
+                            height={RECTANGLE_SIZE * this.props.gameMap.height}>
+                    </canvas>
+                    <button onClick={() => this.props.onAnimateClick()} className="animateButton">Animate</button>
+                </div>
             </div>
         );
     }

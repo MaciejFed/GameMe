@@ -2,7 +2,12 @@
     width: 100%;
     height: 100%;
     background-color: black;
-    color: #88994a;
+    color: red;
     font-size: 22px;
     padding: 25px;
+}
+
+.correctFunction{
+    color: #88994a;
+    font-size: 22px;
 }

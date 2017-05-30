@@ -34,3 +34,4 @@
     position:relative;
     top:1px;
 }
+.animateButton:focus { outline:0; }
