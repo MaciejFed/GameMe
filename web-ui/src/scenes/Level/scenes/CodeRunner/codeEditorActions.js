@@ -5,9 +5,9 @@ export function START_ANIMATION (dispatch) {
     })
 }
 
-export function END_ANIMATION (dispatch) {
+export function END_INTRODUCTION (dispatch) {
     dispatch({
-        type: "END_ANIMATION",
+        type: "END_INTRODUCTION",
         payload: []
     })
 }
@@ -25,11 +25,3 @@ export function APPEND_CODE(dispatch, code) {
         payload: code
     })
 }
-
-export function CODE_EXECUTION_STARTED(dispatch) {
-    dispatch({
-        type: "CODE_EXECUTION_STARTED"
-    });
-}
-
-

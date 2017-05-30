@@ -5,14 +5,21 @@ import styles from './level.css'
 import { connect } from 'react-redux'
 import { LOAD_LEVEL } from './levelActions'
 
-
-@connect((stateProps) => {
+const mapStateToProps = (storeProps, ownProps) => {
     return {
-        level: stateProps.levelReducer.level,
-        isLevelLoading: stateProps.levelReducer.isLevelLoading
+        level: storeProps.levelReducer.level,
+        isLevelLoading: storeProps.levelReducer.isLevelLoading,
+        isAnimating: storeProps.boardReducer.isAnimating
     }
-})
-export default class Level extends React.Component{
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        dispatch: dispatch
+    }
+};
+@connect()
+class Level extends React.Component{
 
     render(){
         return(
@@ -23,7 +30,7 @@ export default class Level extends React.Component{
         )
     }
 
-    componentWillMount(){
+    componentDidMount(){
         LOAD_LEVEL(location.pathname.substr(1))(this.props.dispatch.bind(this));
     }
 
@@ -32,3 +39,5 @@ export default class Level extends React.Component{
         window.location.reload();
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Level);
