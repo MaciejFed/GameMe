@@ -9,7 +9,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var config = {
     devtool: 'inline-source-map',
     entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8081',
+        'webpack-dev-server/client?http://0.0.0.0:80',
         'webpack/hot/only-dev-server',
         './src'
     ],

@@ -10,12 +10,14 @@ import java.util.List;
 public class LevelDTO {
     public GameMapDTO gameMap;
     public List<String> introductionText;
+    public String startCode;
     public List<String> functions;
     public int number;
 
-    public LevelDTO(GameMapDTO gameMapDTO, List<String> introductionText, List<String> functions, int number) {
+    public LevelDTO(GameMapDTO gameMapDTO, List<String> introductionText, String startCode, List<String> functions, int number) {
         this.gameMap = gameMapDTO;
         this.introductionText = introductionText;
+        this.startCode = startCode;
         this.functions = functions;
         this.number = number;
     }
