@@ -21,14 +21,14 @@ class LevelController {
   @Autowired
   private val levelService: LevelService = null
 
-  @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.GET))
-  def getLevel(@PathVariable levelNumber: Int): ResponseEntity[LevelDTO] = {
-    new ResponseEntity[LevelDTO](levelService.getLevel(levelNumber), HttpStatus.OK)
+  @RequestMapping(value = Array("/{levelName}"), method = Array(RequestMethod.GET))
+  def getLevel(@PathVariable levelName: String): ResponseEntity[LevelDTO] = {
+    new ResponseEntity[LevelDTO](levelService.getLevel(levelName), HttpStatus.OK)
   }
 
-  @RequestMapping(value = Array("/{levelNumber}"), method = Array(RequestMethod.POST))
-  def runCodeOnMap(@PathVariable levelNumber: Int, @RequestBody codeRequestDTO: CodeRequestDTO): ResponseEntity[RoadResponseDTO] = {
-    val gameMap = levelService.getLevel(levelNumber).gameMap
+  @RequestMapping(value = Array("/{levelName}"), method = Array(RequestMethod.POST))
+  def runCodeOnMap(@PathVariable levelName: String, @RequestBody codeRequestDTO: CodeRequestDTO): ResponseEntity[RoadResponseDTO] = {
+    val gameMap = levelService.getLevel(levelName).gameMap
     val executionResult = codeExecutorService.executeCodeOnLevel(gameMap, codeRequestDTO.code)
 
     new ResponseEntity[RoadResponseDTO](executionResult, HttpStatus.OK)

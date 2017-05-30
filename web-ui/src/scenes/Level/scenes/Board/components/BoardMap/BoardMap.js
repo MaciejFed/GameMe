@@ -18,7 +18,7 @@ export default class BoardMap extends React.Component{
     render(){
         return(
             <div key="const" id="board" className="board" >
-                <h2 className="levelTitle">{ this.props.levelNumber } Level</h2>
+                <h2 className="levelTitle">{ this.props.levelName } Level</h2>
                 <div className="map">
                     <canvas id={STAGE_NAME}
                             width={RECTANGLE_SIZE * this.props.gameMap.width}

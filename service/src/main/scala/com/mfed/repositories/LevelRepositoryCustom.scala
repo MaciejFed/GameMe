@@ -19,8 +19,8 @@ class LevelRepositoryCustom {
   @Autowired
   private val mongoTemplate: MongoTemplate = null
 
-  def findByLevelNumber(levelNumber: Integer): Level = {
-    val query = new Query(Criteria.where("number").is(levelNumber))
+  def findByLevelName(levelNumber: String): Level = {
+    val query = new Query(Criteria.where("name").is(levelNumber))
 
     mongoTemplate.findOne(query, classOf[Level])
   }

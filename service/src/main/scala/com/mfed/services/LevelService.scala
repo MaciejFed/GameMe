@@ -16,7 +16,7 @@ class LevelService{
   @Autowired
   val levelRepository: LevelRepositoryCustom = null
 
-  def getLevel(levelNumber: Int): Level = {
-    levelRepository.findByLevelNumber(levelNumber)
+  def getLevel(levelName: String): Level = {
+    levelRepository.findByLevelName(levelName)
   }
 }

@@ -14,7 +14,7 @@ import scala.collection.JavaConverters._
 object GameMapSerializatiors {
 
   implicit def serializeLevel(level: Level): LevelDTO = {
-    new LevelDTO(level.gameMap, level.introductionText, level.startCode, level.functions, level.number)
+    new LevelDTO(level.gameMap, level.introductionText, level.startCode, level.functions, level.name)
   }
 
 
