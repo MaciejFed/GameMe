@@ -3,7 +3,7 @@ import { Editor, EditorState, ContentState, CompositeDecorator } from 'draft-js'
 import styles from './coderunner.css';
 import { CHANGE_CODE } from '../../codeEditorActions';
 import { connect } from "react-redux";
-const CORRECT_FUNCTION_REGEX = /(go\(\d*\);)|(rotateRight\(\d*\);)|(while\((not)?FacingWall\(\)\))|(\{)|(\})|(while\(true\(\)\))/g;
+const CORRECT_FUNCTION_REGEX = /(go\(\d*\);)|(rotateRight\(\d*\);)|(while\((not)?FacingWall\(\)\))|(if\((not)?FacingWall\(\)\))|(\{)|(\})|(while\(true\(\)\))|(else)/g;
 
 const CorrectFunctionSpan = (props) => {
     return <span {...props} className="correctFunction">{props.children}</span>;

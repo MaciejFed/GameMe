@@ -13,9 +13,10 @@ export function animateRobot(stage, robotBitmap, arrowBitmap, diamonds, road){
         if(road[i-1].collectedDiamonds.length === 0){
             robotTween.to({ x: robotPositions[i].x, y: robotPositions[i].y }, ONE_STEP_TIME, createjs.Ease.getPowInOut(4));
             arrowTween.to({ x: arrowPositions[i].x, y: arrowPositions[i].y, rotation: (arrowPositions[i].rotation - 1) * 90 }, ONE_STEP_TIME, createjs.Ease.getPowInOut(4));
+            animationTimeout += ONE_STEP_TIME;
         }
+
         hideCollectedDiamonds(stage, diamonds, road[i-1].collectedDiamonds, animationTimeout);
-        animationTimeout += ONE_STEP_TIME - road[i-1].collectedDiamonds.length * ONE_STEP_TIME;
     }
     return animationTimeout;
 }
