@@ -18,7 +18,7 @@ import com.mfed.scenario.helpers.variables.ScenarioWithIntVariable._
 import com.mfed.scenario.helpers.diamonds.ScenarioWithDiamonds._
 import com.mfed.services.CodeExecutorService
 import org.junit.Assert._
-import org.junit.Test
+import org.junit.{Ignore, Test}
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -110,6 +110,7 @@ class CompileCodeScenarioTest {
     assertEquals(scenarioWithIfElseStatementExpectedResult, result)
   }
 
+  @Ignore
   @Test
   def isNestedTest(): Unit = {
     val result = codeExecutor.executeCodeOnLevel(scenarioWithNestedIfStatementMap, scenarioWithNestedIfStatementFunctions)

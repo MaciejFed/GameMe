@@ -8,5 +8,5 @@ import com.mfed.model.{Block, GameMapState}
   * mfedorowiat@gmail.com
   */
 trait FunctionService {
-  def produceFunctionsFromCodeBlocks(code: List[Block]): List[(GameMapState) => List[GameMapState]]
+  def produceFunctionsFromCodeBlocks(code: List[Block]): List[(GameMapState) => List[(List[GameMapState], String)]]
 }

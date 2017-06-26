@@ -16,31 +16,32 @@ class FunctionProducer {
   private val multiRotatePattern: Regex = "(rotateRight\\(.+\\);)".r
   private val variableDefinitionPattern: Regex = "(def \\D.+\\s*=\\s*\\d+;)".r
 
-  def produceFunctionsFromCode(code: List[String]): List[(GameMapState) => List[GameMapState]] = {
+  def produceFunctionsFromCode(code: List[String]): List[(GameMapState) => List[(List[GameMapState], String)]] = {
     code.map {
-      case multiGoPattern(c) => composeWithValueName(GoFunction.produce(),  readValueName(c))
-      case multiRotatePattern(c) => composeWithValueName(RotateRightFunction.produce(),  readValueName(c))
-      case variableDefinitionPattern(c) => asListResult(SaveVariableFunction.produce(c))
-      case "go();" => asListResult(GoFunction.produce())
-      case "rotateRight();" => asListResult(RotateRightFunction.produce())
-      case _ => (gameMapState: GameMapState) => List(gameMapState)
+      case multiGoPattern(c) => composeWithValueName(GoFunction.produce(),  readValueName(c), c)
+      case multiRotatePattern(c) => composeWithValueName(RotateRightFunction.produce(),  readValueName(c), c)
+      case variableDefinitionPattern(c) => asListResult(SaveVariableFunction.produce(c), c)
+      case "go();" => asListResult(GoFunction.produce(), "go();")
+      case "rotateRight();" => asListResult(RotateRightFunction.produce(), "go();")
+      case _ => (gameMapState: GameMapState) => List((List(gameMapState), ""))
     }
   }
 
-  private def asListResult(function: GameMapState => GameMapState) = {
+  private def asListResult(function: GameMapState => GameMapState, code: String) = {
     (gameMapState: GameMapState) => {
-      List(function(gameMapState))
+      List((List(function(gameMapState)), code))
     }
   }
 
   private def readValueName(function: String): String = function.substring(function.indexOf('(') + 1, function.lastIndexOf(')'))
 
-  private def composeWithValueName(function: GameMapState => GameMapState, valueName: String): GameMapState => List[GameMapState] = {
+  private def composeWithValueName(function: GameMapState => GameMapState, valueName: String, code: String)= {
     (gameMapState: GameMapState) => {
-      if(valueName.matches("\\d+$"))
+      List((if(valueName.matches("\\d+$"))
         composeFunction(function, gameMapState, Integer.parseInt(valueName))
       else
         composeFunction(function, gameMapState, gameMapState.variables(valueName))
+        , code))
     }
   }
 
